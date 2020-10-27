@@ -1,56 +1,79 @@
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset 2">
         <h2>Añadir nuevo proveedor</h2>
-        <form #formpro="ngForm" (ngSubmit)="onSubmit()" >
-           
-            <div class="form-group"> 
-                 <label for="nombre">Nombre</label>
-                 <input type="text" class="form-control" name="nombre"  ngModel> 
+        <form #formpro="ngForm" (ngSubmit)="onSubmit()">
+
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" name="nombre" ngModel required>
             </div>
 
-            <div class="form-group"> 
-                <label for="cif">C.I.F.</label> 
-                <input type="text" class="form-control" id="cif" name="cif"  ngModel>
+            <div class="form-group">
+                <label for="cif">C.I.F.</label>
+                <input type="text" class="form-control" id="cif" name="cif" ngModel>
             </div>
 
-            <div class="form-group"> 
-                <label for="direccion">Dirección</label> 
-                <input type="text" class="form-control" id="direccion" name="direccion"  ngModel> 
-            </div>
-          
-            <div class="form-group"> 
-                <label for="cp">Código Postal</label> 
-                <input type="text" class="form-control" id="cp" name="cp"  ngModel> 
+            <div class="form-group">
+                <label for="direccion">Dirección</label>
+                <input type="text" class="form-control" id="direccion" name="direccion" ngModel>
             </div>
 
-            <div class="form-group"> 
-                <label for="localidad">Localidad</label> 
-                <input type="text" class="form-control" id="localidad" name="localidad"  ngModel> 
+            <div class="form-group">
+                <label for="cp">Código Postal</label>
+                <input type="text" class="form-control" id="cp" name="cp" ngModel>
             </div>
 
-            <div class="form-group"> 
-                <label for="provincia">Provincia</label> 
-                <input type="text" class="form-control" id="provincia" name="provincia"  ngModel> 
+            <div class="form-group">
+                <label for="localidad">Localidad</label>
+                <input type="text" class="form-control" id="localidad" name="localidad" ngModel>
             </div>
 
-            <div class="form-group"> 
-                <label for="telefono">Teléfono</label> 
-                <input type="number" class="form-control" id="telefono" name="telefono" ngModel> 
+            <div class="form-group">
+                <label for="provincia">Provincia</label>
+                <select class="form-control" id="provincia" ngModel name="provincia">
+                    <option value="">Seleccione la provincia</option>
+                    <option *ngFor="let provincia of provincias" [value]="provincia">{{provincia}} </option>
+                </select>
             </div>
 
-            <div class="form-group"> 
-                <label for="email">Correo Electrónico</label> 
-                <input type="text" class="form-control" id="email" name="email"  ngModel> 
+            <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <input type="number" class="form-control" id="telefono" name="telefono" ngModel>
             </div>
 
-            <div class="form-group"> 
+            <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                 <!-- iconos -->
+                <i class="fa fa-check-circle check" *ngIf="email.valid"></i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="email.invalid && email.touched"></i>
+                 <!-- formulario -->
+                <input type="text" class="form-control" id="email" ngModel name="email" required email #email="ngModel">
+                 <!-- mensaje -->
+                <p class="alert alert-danger" *ngIf="email.invalid && email.touched"> Por favor introduzca una
+                    dirección de correo correcta.
+                </p>
+            </div>
+
+            <div class="form-group">
                 <label for="contacto">Persona de contacto</label>
-                <input type="text" class="form-control" id="contacto" name="contacto"  ngModel>  
-            </div> 
+                <input type="text" class="form-control" id="contacto" name="contacto" ngModel>
+            </div>
 
-            <button type="submit" class="btn btn-success"> Añadir Proveedor</button>
+            <button type="submit" class="btn btn-success" [disabled]="!formpro.valid">
+                Añadir Proveedor
+            </button>       
+            <p class="alert alert-danger " *ngIf="!formpro.valid"> 
+                 Por favor complete todos los campos       
+            </p> 
+            <hr>
+            <pre> Estado Dirty: {{ email.dirty }}</pre>
+            <pre> Estado Pristine: {{ email.pristine }}</pre>
+            <pre> Estado Touched: {{ email.touched }}</pre>
+            <pre> Estado Valid: {{ email.valid }}</pre>
+            <pre> Estado Invalid: {{ email.invalid }}</pre>
         </form>
         <hr>
-        <pre>{{ proveedor | json }}</pre> 
+        <pre>{{ proveedor | json }}</pre>
+        <pre>{{ formpro.status | json }}</pre>
     </div>
 </div>
