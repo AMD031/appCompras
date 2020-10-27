@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder,  Validators } from '@angular/forms';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-addpres',
@@ -9,19 +9,38 @@ import { FormControl, FormGroup, FormBuilder,  Validators } from '@angular/forms
 export class AddpresComponent implements OnInit {
   presupuestoForm: FormGroup;
   presupuesto: any;
+  base: any;
+  tipo: any;
+  iva: any = 0;
+  total: any = 0;
 
   constructor(private pf: FormBuilder) { }
+
+  onChanges(): void {
+    this.presupuestoForm.valueChanges.subscribe(valor => {
+      console.log(valor);
+      this.base = valor.base;
+      this.tipo = valor.tipo;
+      this.presupuestoForm.value.iva = this.base * this.tipo;
+      this.presupuestoForm.value.total = this.base + (this.base * this.tipo);
+    });
+  }
+
+
+
 
   ngOnInit(): void {
     this.presupuestoForm = this.pf.group({
       proveedor: ['', Validators.required],
       fecha: ['', Validators.required],
-      concepto: ['', [Validators.required, Validators.minLength(10)] ],
+      concepto: ['', [Validators.required,
+      Validators.minLength(10)]],
       base: ['', Validators.required],
       tipo: ['', Validators.required],
-      iva: ['', Validators.required],
-      total: ['', Validators.required]
+      iva: this.iva,
+      total: this.total
     });
+    this.onChanges();
   }
 
   onSubmit(): void {
