@@ -1,0 +1,32 @@
+<h3>Listado de Presupuestos</h3>
+<div class="text-right">
+    <a class="btn btn-primary " routerLink="/addpres">Añadir nuevo presupuesto</a>
+</div>
+
+
+
+
+<table class="table table-bordered table-striped tabla" style="margin-top: 40px;">
+    <thead>
+        <tr class="filters">
+            <th>Proveedor</th>
+            <th>Fecha</th>
+            <th>Concepto</th>
+            <th>Base</th>
+            <th>IVA</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let presupuesto of presupuestos">
+            <td>{{ presupuesto.proveedor }}</td>
+            <td>{{ presupuesto.fecha }}</td>
+            <td>{{ presupuesto.concepto }}</td>
+            <td>{{ presupuesto.base }}</td>
+            <td>{{ presupuesto.iva }}</td>
+            <td>{{ presupuesto.total }}</td>
+        </tr>
+    </tbody>
+</table>
+
+

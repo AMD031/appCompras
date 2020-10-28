@@ -1,5 +1,6 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { PresupuestosService } from 'src/app/servicios/presupuestos.service';
 
 @Component({
   selector: 'app-addpres',
@@ -14,11 +15,13 @@ export class AddpresComponent implements OnInit {
   iva: any = 0;
   total: any = 0;
 
-  constructor(private pf: FormBuilder) { }
+  constructor(
+    private pf: FormBuilder,
+    private presupuestoService: PresupuestosService
+  ) { }
 
   onChanges(): void {
     this.presupuestoForm.valueChanges.subscribe(valor => {
-      console.log(valor);
       this.base = valor.base;
       this.tipo = valor.tipo;
       this.presupuestoForm.value.iva = this.base * this.tipo;
@@ -45,6 +48,11 @@ export class AddpresComponent implements OnInit {
 
   onSubmit(): void {
     this.presupuesto = this.savePresupuesto();
+    this.presupuestoService.postPresupuesto(this.presupuesto).subscribe(
+      newpres => {
+
+      });
+    this.presupuestoForm.reset();
   }
 
   savePresupuesto(): object {
@@ -59,5 +67,6 @@ export class AddpresComponent implements OnInit {
     };
     return savePresupuesto;
   }
+
 
 }
