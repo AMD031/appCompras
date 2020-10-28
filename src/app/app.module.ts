@@ -18,6 +18,7 @@ import { AddpresComponent } from './presupuestos/addpres/addpres.component';
 import { ProveedoresService } from './servicios/proveedores.service';
 import { PresupuestosService } from './servicios/presupuestos.service';
 import { PresupuestosComponent } from './presupuestos/presupuestos/presupuestos.component';
+import { EditpresComponent } from './presupuestos/editpres/editpres.component';
 
 
 
@@ -33,6 +34,7 @@ import { PresupuestosComponent } from './presupuestos/presupuestos/presupuestos.
     AddproveeComponent,
     AddpresComponent,
     PresupuestosComponent,
+    EditpresComponent,
  
   ],
   imports: [
