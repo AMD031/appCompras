@@ -19,6 +19,7 @@ import { ProveedoresService } from './servicios/proveedores.service';
 import { PresupuestosService } from './servicios/presupuestos.service';
 import { PresupuestosComponent } from './presupuestos/presupuestos/presupuestos.component';
 import { EditpresComponent } from './presupuestos/editpres/editpres.component';
+import { RegistroComponent } from './autenticacion/registro/registro.component';
 
 
 
@@ -35,6 +36,7 @@ import { EditpresComponent } from './presupuestos/editpres/editpres.component';
     AddpresComponent,
     PresupuestosComponent,
     EditpresComponent,
+    RegistroComponent,
  
   ],
   imports: [

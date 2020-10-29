@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { RegistroComponent } from './autenticacion/registro/registro.component';
 
 // componentes
 import { InicioComponent } from './inicio/inicio.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'addpres', component: AddpresComponent},
   { path: 'presupuestos', component: PresupuestosComponent },
   { path: 'editpres/:id', component: EditpresComponent },
+  { path: 'registro', component: RegistroComponent },
   { path: '**', component: EditpresComponent }
 ];
 
