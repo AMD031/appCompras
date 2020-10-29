@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'presupuestos', component: PresupuestosComponent },
   { path: 'editpres/:id', component: EditpresComponent },
   { path: 'registro', component: RegistroComponent },
-  { path: '**', component: EditpresComponent }
+  { path: '**', component: InicioComponent }
 ];
 
 @NgModule({
