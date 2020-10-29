@@ -20,6 +20,23 @@ export class PresupuestosComponent implements OnInit {
         }
       });
   }
+
+  eliminarPresupuesto(id$): void {
+
+    this.presupuestosService.delPresupuesto(id$).subscribe(res => {
+      this.presupuestos = [];
+      this.presupuestosService.getPresupuestos().subscribe(
+        presupuestos => {
+          // tslint:disable-next-line: forin
+          for (const id$ in presupuestos) {
+            const p = presupuestos[id$];
+            p.id$ = id$;
+            this.presupuestos.push(presupuestos[id$]);
+          }
+        });
+    });
+  }
+
   ngOnInit(): void {
   }
 

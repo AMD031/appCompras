@@ -28,7 +28,7 @@ export class PresupuestosService {
   }
 
   getPresupuestos(): Observable<JSON> {
-   
+
     return this.http.get(this.presURL).pipe(
       map((res: JSON) => (res))
     );
@@ -40,8 +40,8 @@ export class PresupuestosService {
       map((res: JSON) => (res))
     );
   }
-  
- 
+
+
 
 
   putPresupuesto(presupuesto: any, id$: string): Observable<any> {
@@ -57,6 +57,12 @@ export class PresupuestosService {
       }));
   }
 
+  delPresupuesto(id$: string): Observable<any> {
+    const url = `${this.presURLnoJSON}/${id$}.json`;
+    return this.http.delete(url).pipe(
+      map((res) => res));
+  }
 
+  
 
 }
