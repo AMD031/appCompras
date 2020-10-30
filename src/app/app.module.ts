@@ -19,15 +19,15 @@ import { AddpresComponent } from './presupuestos/addpres/addpres.component';
 import { EditpresComponent } from './presupuestos/editpres/editpres.component';
 import { RegistroComponent } from './autenticacion/registro/registro.component';
 import { PresupuestosComponent } from './presupuestos/presupuestos/presupuestos.component';
-
+import { InisesComponent } from './autenticacion/inises/inises.component';
 
 // servicios
 import { ProveedoresService } from './servicios/proveedores.service';
 import { PresupuestosService } from './servicios/presupuestos.service';
 import { AutenticacionService } from './servicios/autenticacion.service';
+
 //entorno
 import { environment } from 'src/environments/environment';
-import { InisesComponent } from './autenticacion/inises/inises.component';
 
 
 
