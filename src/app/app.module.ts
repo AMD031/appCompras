@@ -27,6 +27,7 @@ import { PresupuestosService } from './servicios/presupuestos.service';
 import { AutenticacionService } from './servicios/autenticacion.service';
 //entorno
 import { environment } from 'src/environments/environment';
+import { InisesComponent } from './autenticacion/inises/inises.component';
 
 
 
@@ -44,6 +45,7 @@ import { environment } from 'src/environments/environment';
     PresupuestosComponent,
     EditpresComponent,
     RegistroComponent,
+    InisesComponent,
 
   ],
   imports: [

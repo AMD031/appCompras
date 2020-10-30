@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { InisesComponent } from './autenticacion/inises/inises.component';
 import { RegistroComponent } from './autenticacion/registro/registro.component';
 
 // componentes
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'presupuestos', component: PresupuestosComponent },
   { path: 'editpres/:id', component: EditpresComponent },
   { path: 'registro', component: RegistroComponent },
+  { path: 'iniciosesion', component: InisesComponent },
   { path: '**', component: InicioComponent }
 ];
 
