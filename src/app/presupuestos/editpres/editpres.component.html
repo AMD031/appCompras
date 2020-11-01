@@ -33,7 +33,7 @@
                            presupuestoForm.controls.concepto.touched"></i> <input type="text" class="form-control" id="concepto"
                     formControlName="concepto" [(ngModel)]="presupuesto.concepto">
                 <p class="alert alert-danger" *ngIf="presupuestoForm.controls.concepto.invalid &&
-    presupuestoForm.controls.concepto.touched">
+                          presupuestoForm.controls.concepto.touched">
                     El campo Concepto es obligatorio y debe tener más de 10 caracteres.
                 </p>
             </div>

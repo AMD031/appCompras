@@ -9,19 +9,21 @@ import { Router, ActivatedRoute } from '@angular/router';
   providedIn: 'root'
 })
 export class AutenticacionService {
+  iniciado: boolean;
 
   constructor(
     public FAuth: AngularFireAuth,
     private router: Router,
     private activatedRouter: ActivatedRoute) {
+    this.iniciado = false;
   }
 
   registroUsuario(userdata): void {
-    firebase.auth().createUserWithEmailAndPassword(userdata.email, userdata.password)
-      .catch(
-        err => {
-          console.log(err);
-        });
+
+    firebase.auth().createUserWithEmailAndPassword(userdata.email, userdata.password).catch(
+      err => {
+        console.log(err);
+      });
   }
 
 
@@ -30,21 +32,36 @@ export class AutenticacionService {
       response => {
         console.log(response);
         this.router.navigate(['/inicio']);
-      }).catch(error => { console.log(error); });
+      }).then(() => { this.iniciado = true }).catch(error => { console.log(error); });
   }
 
   isAuthenticated(): boolean {
-   const user = firebase.auth().currentUser;
-   console.log(user);
-    if (user) {
-      return true;
+
+    if (this.iniciado) {
+      const user = firebase.auth().currentUser;
+      console.log(user);
+      if (user) {
+        return true;
+      } else {
+        return false;
+      }
+
     } else {
       return false;
     }
+
+
+
+
+
   }
 
   logout(): void {
-    firebase.auth().signOut();
+    firebase.auth().signOut().then(
+      () => {
+        this.iniciado = false;
+      }
+    );
   }
 
 
