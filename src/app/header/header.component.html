@@ -16,9 +16,9 @@
                 <a class="nav-link" routerLink="/proveedores" *ngIf="isAuth()">Proveedores </a>
             </li>
 
-            <!-- <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" routerLink="/addpres"> Añadir Presupuesto </a>
-            </li> -->
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/addpres" *ngIf="isAuth()"> Añadir Presupuesto </a>
+            </li>
 
             <li class="nav-item" routerLinkActive="active" *ngIf="isAuth()">
                 <a class="nav-link" routerLink="/presupuestos"> Presupuestos </a>
