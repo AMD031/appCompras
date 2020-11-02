@@ -49,11 +49,6 @@ export class AutenticacionService {
     } else {
       return false;
     }
-
-
-
-
-
   }
 
   logout(): void {

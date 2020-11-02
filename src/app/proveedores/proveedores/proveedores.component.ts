@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SnapshotAction } from '@angular/fire/database';
+import { observable, Observable } from 'rxjs';
 import { ProveedoresService } from '../../servicios/proveedores.service';
 
 @Component({
@@ -7,27 +9,27 @@ import { ProveedoresService } from '../../servicios/proveedores.service';
   styleUrls: ['./proveedores.component.css']
 })
 export class ProveedoresComponent implements OnInit {
-  proveedores: any;
+  //proveedores: any;
   proveedor: any;
+  proveedores$: Observable<SnapshotAction<unknown>[]>;
 
   constructor(private proveedoresService: ProveedoresService) {
 
-    this.proveedor = {
-      nombre: '',
-      cif: '',
-      direccion: '',
-      cp: '',
-      localidad: '',
-      provincia: '',
-      telefono: null,
-      email: '',
-      contacto: ''
-    };
-
+    // this.proveedor = {
+    //   nombre: '',
+    //   cif: '',
+    //   direccion: '',
+    //   cp: '',
+    //   localidad: '',
+    //   provincia: '',
+    //   telefono: null,
+    //   email: '',
+    //   contacto: ''
+    // };
   }
 
   ngOnInit(): void {
-    this.proveedores = this.proveedoresService.getProveedores();
+    this.proveedores$ = this.proveedoresService.getProveedores();
   }
 
 }

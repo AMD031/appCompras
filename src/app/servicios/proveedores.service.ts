@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
-
+import { AngularFireDatabase, AngularFireList, SnapshotAction } from '@angular/fire/database';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class ProveedoresService {
-
-  constructor() { }
+  constructor(private proveedoresDB: AngularFireDatabase,) {
+    this.myDB = this.proveedoresDB.list('proveedores');
+  }
+  private myDB: AngularFireList<unknown>;
 
   proveedores: any = [
     {
@@ -30,7 +33,15 @@ export class ProveedoresService {
     }
   ];
 
-  getProveedores(): string {
-    return this.proveedores;
+  public addProveedor(): void {
+    this.myDB.push( this.proveedores[1]);
   }
+
+  getProveedores():  Observable<SnapshotAction<unknown>[]> {
+    // return this.proveedores;
+   return this.myDB.snapshotChanges();
+  }
+
+
+  
 }
