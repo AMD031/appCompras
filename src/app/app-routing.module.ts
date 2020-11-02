@@ -17,10 +17,10 @@ import { GuardService } from './servicios/guard.service';
 
 const routes: Routes = [
   { path: '', component: InicioComponent, canActivate: [GuardService]  },
-  { path: 'proveedores', component: ProveedoresComponent, canActivate: [GuardService]   },
-  { path: 'addprovee', component: AddproveeComponent , canActivate: [GuardService] },
+  { path: 'proveedores', component: ProveedoresComponent , canActivate: [GuardService]   },
+  { path: 'addprovee', component: AddproveeComponent  , canActivate: [GuardService]},
   { path: 'addpres', component: AddpresComponent, canActivate: [GuardService] },
-  { path: 'presupuestos', component: PresupuestosComponent, canActivate: [GuardService]  },
+  { path: 'presupuestos', component: PresupuestosComponent , canActivate: [GuardService] },
   { path: 'editpres/:id', component: EditpresComponent, canActivate: [GuardService]  },
   { path: 'registro', component: RegistroComponent },
   { path: 'iniciosesion', component: InisesComponent },

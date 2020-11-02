@@ -33,7 +33,7 @@
                 <!-- mensaje -->
                 <p class="alert alert-danger"
                     *ngIf="presupuestoForm.controls.fecha.invalid && presupuestoForm.controls.fecha.touched">
-                    El campo Proveedor es obligatorio.
+                    El campo fecha es obligatorio.
                 </p>
             </div>
 
@@ -48,7 +48,7 @@
                 <!-- mensaje -->
                 <p class="alert alert-danger"
                     *ngIf="presupuestoForm.controls.concepto.invalid && presupuestoForm.controls.concepto.touched">
-                    El campo Proveedor es obligatorio.
+                    El campo concepto es obligatorio.
                 </p>
             </div>
 
@@ -63,7 +63,7 @@
                 <!-- mensaje -->
                 <p class="alert alert-danger"
                     *ngIf="presupuestoForm.controls.base.invalid && presupuestoForm.controls.base.touched">
-                    El campo Proveedor es obligatorio.
+                    El campo base es obligatorio.
                 </p>
             </div>
 
@@ -81,11 +81,11 @@
                     <option value=0.10>10 %</option>
                     <option value=0.21>21 %</option>
                 </select>
+                <!-- mensaje -->
                 <p class="alert alert-danger"
                     *ngIf="presupuestoForm.controls.tipo.invalid && presupuestoForm.controls.tipo.touched">
-                    El campo Proveedor es obligatorio.
+                    El campo tipo es obligatorio.
                 </p>
-
             </div>
 
             <div class="form-group">
@@ -103,10 +103,12 @@
             <button type="submit" class="btn btn-primary" [disabled]="!presupuestoForm.valid">
                 Añadir Presupuesto
             </button>
+            
             <a class="btn btn-danger ml-2" routerLink="/presupuestos">Cancelar</a> 
-            <p class="alert alert-danger" *ngIf="!presupuestoForm.valid">
+           
+            <!-- <p class="alert alert-danger" *ngIf="!presupuestoForm.valid">
                 Por favor complete todos los campos
-            </p>
+            </p> -->
 
         </form>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PresupuestosService } from 'src/app/servicios/presupuestos.service';
 
@@ -50,7 +50,6 @@ export class AddpresComponent implements OnInit {
     this.presupuesto = this.savePresupuesto();
     this.presupuestoService.postPresupuesto(this.presupuesto).subscribe(
       newpres => {
-
       });
     this.presupuestoForm.reset();
   }
