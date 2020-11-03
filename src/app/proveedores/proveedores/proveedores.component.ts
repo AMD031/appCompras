@@ -32,4 +32,8 @@ export class ProveedoresComponent implements OnInit {
     this.proveedores$ = this.proveedoresService.getProveedores();
   }
 
+  removeProvedor(clave: string): void {
+    this.proveedoresService.removeProvedor(clave);
+  }
+
 }

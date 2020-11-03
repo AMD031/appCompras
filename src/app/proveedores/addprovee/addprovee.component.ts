@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgForm } from '@angular/forms';
+import { ProveedoresService } from 'src/app/servicios/proveedores.service';
 
 @Component({
   selector: 'app-addprovee',
@@ -66,7 +67,9 @@ export class AddproveeComponent implements OnInit {
     { provincia: 'Ávila' },
   ];
   valido: boolean;
-  constructor(private pf: FormBuilder) {
+  constructor(
+     private pf: FormBuilder ,
+     private proveedoresService: ProveedoresService) {
   }
 
   ngOnInit(): void {
@@ -90,12 +93,15 @@ export class AddproveeComponent implements OnInit {
   onSubmit(): void {
 
     this.proveedor = this.savePresupuesto();
+    if (this.proveedor) {
+      this.proveedoresService.addProveedor(this.proveedor);
+    }
     this.proveedorForm.reset();
   }
 
 
   savePresupuesto(): object {
- 
+
     const saveProveedor = {
       nombre: this.proveedorForm.get('nombre').value,
       cif: this.proveedorForm.get('cif').value,

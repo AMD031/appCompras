@@ -10,38 +10,49 @@ export class ProveedoresService {
   }
   private myDB: AngularFireList<unknown>;
 
-  proveedores: any = [
-    {
-      nombre: 'Telefónica',
-      cif: 'B12345678',
-      direccion: 'Paseo de la Castellana, 100',
-      cp: '28.010', localidad: 'Madrid',
-      provincia: 'Madrid', telefono: 911111111,
-      email: 'info@telefonica.com',
-      contacto: 'Juan Pérez'
-    },
-    {
-      nombre: 'Iberdrola',
-      cif: 'B87654321',
-      direccion: 'Príncipe de Vergara, 200',
-      cp: '28.015',
-      localidad: 'Madrid',
-      provincia: 'Madrid',
-      telefono: 922222222,
-      email: 'info@iberdrola.com',
-      contacto: 'Laura Martínez'
-    }
-  ];
+  // proveedores: any = [
+  //   {
+  //     nombre: 'Telefónica',
+  //     cif: 'B12345678',
+  //     direccion: 'Paseo de la Castellana, 100',
+  //     cp: '28.010', localidad: 'Madrid',
+  //     provincia: 'Madrid', telefono: 911111111,
+  //     email: 'info@telefonica.com',
+  //     contacto: 'Juan Pérez'
+  //   },
+  //   {
+  //     nombre: 'Iberdrola',
+  //     cif: 'B87654321',
+  //     direccion: 'Príncipe de Vergara, 200',
+  //     cp: '28.015',
+  //     localidad: 'Madrid',
+  //     provincia: 'Madrid',
+  //     telefono: 922222222,
+  //     email: 'info@iberdrola.com',
+  //     contacto: 'Laura Martínez'
+  //   }
+  // ];
 
-  public addProveedor(): void {
-    this.myDB.push( this.proveedores[1]);
+  public addProveedor(proveedor: any): any {
+    return this.myDB.push(proveedor);
   }
 
-  getProveedores():  Observable<SnapshotAction<unknown>[]> {
+  getProveedores(): Observable<SnapshotAction<unknown>[]> {
     // return this.proveedores;
-   return this.myDB.snapshotChanges();
+    return this.myDB.snapshotChanges();
+  }
+
+  getProveedor(clave: string): Observable<unknown> {
+    return this.proveedoresDB.object(`proveedores/${clave}`).valueChanges();
+  }
+
+  public removeProvedor(clave: string): Promise<void> {
+    return this.myDB.remove(clave);
+  }
+
+  public updateProvedor(clave: string, valor: any): Promise<void> {
+    return this.myDB.update(clave, valor);
   }
 
 
-  
 }

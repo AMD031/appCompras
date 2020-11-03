@@ -13,7 +13,7 @@
             </li>
 
             <li class="nav-item" routerLinkActive="active" >
-                <a class="nav-link" routerLink="/proveedores"   >Proveedores </a>
+                <a class="nav-link" routerLink="/proveedores"   *ngIf="isAuth()" >Proveedores </a>
             </li>
 
             <li class="nav-item" routerLinkActive="active">

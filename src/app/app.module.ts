@@ -20,19 +20,15 @@ import { EditpresComponent } from './presupuestos/editpres/editpres.component';
 import { RegistroComponent } from './autenticacion/registro/registro.component';
 import { PresupuestosComponent } from './presupuestos/presupuestos/presupuestos.component';
 import { InisesComponent } from './autenticacion/inises/inises.component';
+import { EditproveeComponent } from './proveedores/editprovee/editprovee.component';
 
 // servicios
 import { ProveedoresService } from './servicios/proveedores.service';
 import { PresupuestosService } from './servicios/presupuestos.service';
 import { AutenticacionService } from './servicios/autenticacion.service';
 
-//entorno
+// entorno
 import { environment } from 'src/environments/environment';
-
-
-
-
-
 
 @NgModule({
   declarations: [
@@ -46,7 +42,7 @@ import { environment } from 'src/environments/environment';
     EditpresComponent,
     RegistroComponent,
     InisesComponent,
-
+    EditproveeComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +53,6 @@ import { environment } from 'src/environments/environment';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
-
   ],
   providers: [ProveedoresService, PresupuestosService, AutenticacionService],
   bootstrap: [AppComponent]

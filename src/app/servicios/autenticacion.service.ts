@@ -30,7 +30,7 @@ export class AutenticacionService {
   inicioSesion(userdata): void {
     firebase.auth().signInWithEmailAndPassword(userdata.email, userdata.password).then(
       response => {
-        console.log(response);
+        // console.log(response);
         this.router.navigate(['/inicio']);
       }).then(() => { this.iniciado = true }).catch(error => { console.log(error); });
   }
@@ -39,7 +39,7 @@ export class AutenticacionService {
 
     if (this.iniciado) {
       const user = firebase.auth().currentUser;
-      console.log(user);
+      //console.log(user);
       if (user) {
         return true;
       } else {

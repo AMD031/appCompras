@@ -9,7 +9,7 @@
                 <th>Telefono</th>
                 <th>Key</th>
                 <th>Editar</th>
-                <th>Eliminar</th>
+                <!-- <th>Eliminar</th> -->
             </tr>
         </thead>
         <tbody>
@@ -17,15 +17,15 @@
                 <td>{{ proveedor.payload.val().nombre }}</td>
                 <td><a href="mailto:{{ proveedor.email}}">{{ proveedor.payload.val().email }}</a></td>
                 <td>{{ proveedor.payload.val().telefono }}</td>
-                <td> <pre>{{proveedor.key | json}}</pre></td>
+                <!-- <td> <pre>{{proveedor.key | json}}</pre></td> -->
                
                 <td>
-                    <button type="button" class="btn btn-success">
+                    <button type="button" class="btn btn-success"  [routerLink]="[ '/editprovee']" > 
                         Editar
                     </button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-danger">
+                    <button type="button" class="btn btn-danger" (click)="removeProvedor(proveedor.key)">
                         Eliminar
                     </button>
                 </td>
