@@ -16,15 +16,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let presupuesto of presupuestos">
-                <td>{{ presupuesto.proveedor }}</td>
-                <td>{{ presupuesto.fecha }}</td>
-                <td>{{ presupuesto.concepto }}</td>
-                <td>{{ presupuesto.base }}</td>
-                <td>{{ presupuesto.iva }}</td>
-                <td>{{ presupuesto.total }}</td>
+            <tr *ngFor="let presupuesto of presupuestoss | async">
+                <td>{{ presupuesto.payload.val().proveedor }}</td>
+                <td>{{ presupuesto.payload.val().fecha }}</td>
+                <td>{{ presupuesto.payload.val().concepto }}</td>
+                <td>{{  presupuesto.payload.val().base }}</td>
+                <td>{{  presupuesto.payload.val().iva }}</td>
+                <td>{{  presupuesto.payload.val().total }}</td>
                 <td>
-                    <button type="button" class="btn btn-success" routerLink="/editpres/{{ presupuesto.id$ }}">
+                    <button type="button" class="btn btn-success" [routerLink]="['/editpres', presupuesto.key]">
                         Editar
                     </button>
                 </td>

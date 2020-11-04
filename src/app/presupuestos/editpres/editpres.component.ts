@@ -24,8 +24,8 @@ export class EditpresComponent implements OnInit {
     private activatedRouter: ActivatedRoute) {
     this.activatedRouter.params.subscribe(parametros => {
       this.id = parametros['id'];
-      this.presupuestoService.getPresupuesto(this.id).subscribe(
-        presupuesto => this.presupuestoForm.setValue(presupuesto));
+      this.presupuestoService.getPresupuesto_(this.id).subscribe(
+       presupuesto => this.presupuestoForm.setValue(presupuesto));
     });
   }
 
@@ -51,13 +51,25 @@ export class EditpresComponent implements OnInit {
         this.presupuestoForm.value.total = this.base + (this.base * this.tipo);
       });
   }
+
   onSubmit(): void {
     this.presupuesto = this.savePresupuesto();
-    
-    this.presupuestoService.putPresupuesto(this.presupuesto, this.id).subscribe(
-      newpre => {
-        this.router.navigate(['/presupuestos']);
-      });
+    if (this.presupuesto && this.id) {
+      this.presupuestoService.updatePresupuesto(this.id, this.presupuesto).then(
+        () => {
+          this.router.navigate(['/presupuestos']);
+        });
+    } else if (this.presupuesto) {
+      this.presupuestoService.addPresupuestos(this.presupuesto).then(
+      );
+    }
+
+
+
+    // this.presupuestoService.putPresupuesto(this.presupuesto, this.id).subscribe(
+    //   newpre => {
+    //     this.router.navigate(['/presupuestos']);
+    //   });
 
   }
   savePresupuesto(): object {

@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList, SnapshotAction } from '@angular/fire/database';
 import { Observable } from 'rxjs';
+import { Proveedor } from '../modelos/proveedor';
 @Injectable({
   providedIn: 'root'
 })
 export class ProveedoresService {
-  constructor(private proveedoresDB: AngularFireDatabase,) {
-    this.myDB = this.proveedoresDB.list('proveedores');
-  }
+  ruta: string;
   private myDB: AngularFireList<unknown>;
+
+  constructor(private proveedoresDB: AngularFireDatabase) {
+    this.ruta  = 'proveedores';
+    this.myDB = this.proveedoresDB.list(this.ruta);
+  }
 
   // proveedores: any = [
   //   {
@@ -33,7 +37,7 @@ export class ProveedoresService {
   //   }
   // ];
 
-  public addProveedor(proveedor: any): any {
+  public addProveedor(proveedor: Proveedor): firebase.database.ThenableReference {
     return this.myDB.push(proveedor);
   }
 
@@ -43,7 +47,7 @@ export class ProveedoresService {
   }
 
   getProveedor(clave: string): Observable<unknown> {
-    return this.proveedoresDB.object(`proveedores/${clave}`).valueChanges();
+    return this.proveedoresDB.object(`${this.ruta}/${clave}`).valueChanges();
   }
 
   public removeProvedor(clave: string): Promise<void> {

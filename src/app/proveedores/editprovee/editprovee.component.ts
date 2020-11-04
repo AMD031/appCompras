@@ -95,7 +95,6 @@ export class EditproveeComponent implements OnInit {
       this.proveedoresService.addProveedor(this.proveedor).then(
       );
     }
-
     this.proveedorForm.reset();
   }
 
@@ -116,7 +115,6 @@ export class EditproveeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.proveedorForm = this.pf.group({
       nombre: ['', Validators.required],
       cif: ['', Validators.required],

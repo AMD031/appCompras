@@ -8,9 +8,9 @@
                 <th>Nombre</th>
                 <th>Correo Electrónico</th>
                 <th>Telefono</th>
-                <th>Key</th>
+                <!-- <th>Key</th> -->
                 <th>Editar</th>
-                <!-- <th>Eliminar</th> -->
+                <th>Eliminar</th>
             </tr>
         </thead>
         <tbody>
@@ -19,9 +19,9 @@
                 <td><a href="mailto:{{ proveedor.email}}">{{ proveedor.payload.val().email }}</a></td>
                 <td>{{ proveedor.payload.val().telefono }}</td>
                 <!-- <td> <pre>{{proveedor.key | json}}</pre></td> -->
-               
+
                 <td>
-                    <button type="button" class="btn btn-success"  [routerLink]="[ '/editprovee', proveedor.key]" > 
+                    <button type="button" class="btn btn-success" [routerLink]="['/editprovee', proveedor.key]">
                         Editar
                     </button>
                 </td>
