@@ -21,10 +21,10 @@ export class EditproveeComponent implements OnInit {
     this.activatedRouter.params.subscribe(parametros => {
       this.id = parametros['id'];
 
-      this.proveedoresService.getProveedor(this.id).subscribe(
-          proveedor => this.proveedorForm.setValue(proveedor),
-        );
- 
+      // tslint:disable-next-line: no-unused-expression
+      this.id && this.proveedoresService.getProveedor(this.id).subscribe(
+        proveedor => this.proveedorForm.setValue(proveedor)
+      );
     });
 
   }
@@ -87,12 +87,15 @@ export class EditproveeComponent implements OnInit {
 
     this.proveedor = this.savePresupuesto();
     if (this.proveedor && this.id) {
-      this.proveedoresService.updateProvedor( this.id, this.proveedor).then(
+      this.proveedoresService.updateProvedor(this.id, this.proveedor).then(
         () => {
           this.router.navigate(['/proveedores']);
-        }
-      )
+        });
+    } else if (this.proveedor) {
+      this.proveedoresService.addProveedor(this.proveedor).then(
+      );
     }
+
     this.proveedorForm.reset();
   }
 
@@ -113,7 +116,7 @@ export class EditproveeComponent implements OnInit {
   }
 
   ngOnInit(): void {
- 
+
     this.proveedorForm = this.pf.group({
       nombre: ['', Validators.required],
       cif: ['', Validators.required],

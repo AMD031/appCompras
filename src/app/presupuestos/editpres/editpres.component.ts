@@ -53,6 +53,7 @@ export class EditpresComponent implements OnInit {
   }
   onSubmit(): void {
     this.presupuesto = this.savePresupuesto();
+    
     this.presupuestoService.putPresupuesto(this.presupuesto, this.id).subscribe(
       newpre => {
         this.router.navigate(['/presupuestos']);

@@ -1,6 +1,12 @@
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset 2 mb-5">
-        <h2>Añadir nuevo proveedor</h2>
+             <h2 *ngIf="!id">Añadir nuevo proveedor</h2> 
+             <h2 *ngIf="id">Editar proveedor</h2>
+
+             <div class="text-right">      
+                <a class="btn btn-primary" routerLink="/proveedores">Regresar al listado</a> 
+            </div>
+    
         <form [formGroup]="proveedorForm" (ngSubmit)="onSubmit()">
 
             <div class="form-group">
@@ -9,7 +15,7 @@
                 <i class="fa fa-check-circle check" *ngIf="proveedorForm.controls.nombre.valid"></i>
                 <i class="fa fa-exclamation-circle uncheck"
                     *ngIf="proveedorForm.controls.nombre.invalid &&  proveedorForm.controls.nombre.touched"></i>
-                <!-- compo formulario -->
+                <!-- campo formulario -->
                 <input type="text" class="form-control" formControlName="nombre">
 
                 <!-- mensaje -->
@@ -25,7 +31,7 @@
                 <i class="fa fa-check-circle check" *ngIf="proveedorForm.controls.cif.valid"></i>
                 <i class="fa fa-exclamation-circle uncheck"
                     *ngIf="proveedorForm.controls.cif.invalid &&  proveedorForm.controls.cif.touched"></i>
-                <!-- compo formulario -->
+                <!-- campo formulario -->
                 <input type="text" class="form-control" id="cif" formControlName="cif">
                 <!-- mensaje -->
                 <p class="alert alert-danger"
@@ -40,7 +46,7 @@
                 <i class="fa fa-check-circle check" *ngIf="proveedorForm.controls.direccion.valid"></i>
                 <i class="fa fa-exclamation-circle uncheck"
                     *ngIf="proveedorForm.controls.direccion.invalid &&  proveedorForm.controls.direccion.touched"></i>
-                <!-- compo formulario -->
+                <!-- campo formulario -->
                 <input type="text" class="form-control" id="direccion" formControlName="direccion">
                 <!-- mensaje -->
                 <p class="alert alert-danger"
@@ -55,7 +61,7 @@
                 <i class="fa fa-check-circle check" *ngIf="proveedorForm.controls.cp.valid"></i>
                 <i class="fa fa-exclamation-circle uncheck"
                     *ngIf="proveedorForm.controls.cp.invalid &&  proveedorForm.controls.cp.touched"></i>
-                <!-- compo formulario -->
+                <!-- campo formulario -->
                 <input type="text" class="form-control" id="cp" formControlName="cp">
                 <!-- mensaje -->
                 <p class="alert alert-danger"
@@ -70,7 +76,7 @@
                 <i class="fa fa-check-circle check" *ngIf="proveedorForm.controls.localidad.valid"></i>
                 <i class="fa fa-exclamation-circle uncheck"
                     *ngIf="proveedorForm.controls.localidad.invalid &&  proveedorForm.controls.localidad.touched"></i>
-                <!-- compo formulario -->
+                <!-- campo formulario -->
                 <input type="text" class="form-control" id="localidad" formControlName="localidad">
                 <!-- mensaje -->
                 <p class="alert alert-danger"
@@ -85,7 +91,7 @@
                 <i class="fa fa-check-circle check" *ngIf="proveedorForm.controls.provincia.valid"></i>
                 <i class="fa fa-exclamation-circle uncheck"
                     *ngIf="proveedorForm.controls.provincia.invalid &&  proveedorForm.controls.provincia.touched" ></i>
-                <!-- compo formulario -->
+                <!-- campo formulario -->
                 <select class="form-control" id="provincia" formControlName="provincia">
                     <option [ngValue]="null" disabled>Seleccione la provincia</option>
                     <option *ngFor="let provincia of provincias" [ngValue]="provincia.provincia">{{provincia.provincia}}
@@ -105,7 +111,7 @@
                 <i class="fa fa-check-circle check" *ngIf="proveedorForm.controls.telefono.valid"></i>
                 <i class="fa fa-exclamation-circle uncheck"
                     *ngIf="proveedorForm.controls.telefono.invalid &&  proveedorForm.controls.telefono.touched"></i>
-                <!-- compo formulario -->
+                <!-- campo formulario -->
                 <input type="number" class="form-control" id="telefono" formControlName="telefono">
                 <!-- mensaje -->
                 <p class="alert alert-danger"
@@ -120,7 +126,7 @@
                 <i class="fa fa-check-circle check" *ngIf="proveedorForm.controls.email.valid"></i>
                 <i class="fa fa-exclamation-circle uncheck"
                     *ngIf="proveedorForm.controls.email.invalid &&  proveedorForm.controls.email.touched"></i>
-                <!-- compo formulario -->
+                <!-- campo formulario -->
                 <input type="text" class="form-control" id="email" formControlName="email">
                 <!-- mensaje -->
                 <p class="alert alert-danger"
@@ -135,7 +141,7 @@
                 <i class="fa fa-check-circle check" *ngIf="proveedorForm.controls.contacto.valid"></i>
                 <i class="fa fa-exclamation-circle uncheck"
                     *ngIf="proveedorForm.controls.contacto.invalid &&  proveedorForm.controls.contacto.touched"></i>
-                <!-- compo formulario -->
+                <!-- campo formulario -->
                 <input type="text" class="form-control" id="contacto" formControlName="contacto">
                 <!-- mensaje -->
                 <p class="alert alert-danger"
@@ -145,7 +151,9 @@
             </div>
 
             <button type="submit" class="btn btn-success" [disabled]="!proveedorForm.valid">
-                Editar Proveedor
+                <span *ngIf="id">Editar Proveedor</span>
+                <span *ngIf="!id">Añadir proveedor</span>
+          
             </button>
 
             <!-- <p class="alert alert-danger " *ngIf="!proveedorForm.valid">
