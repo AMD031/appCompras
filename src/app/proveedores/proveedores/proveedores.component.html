@@ -1,8 +1,5 @@
-<h3>Listado de Proveedores</h3>
-
 <div class="table-responsive-sm">
-    <a class="btn btn-primary float-md-right mb-2" routerLink="/addprovee">Añadir nuevo proveedor</a>
-    <table class="table table-bordered table-striped tabla mt-3">
+    <table class="table table-bordered table-striped">
         <thead>
             <tr class="filters">
                 <th>Nombre</th>
@@ -13,6 +10,7 @@
                 <th>Eliminar</th>
             </tr>
         </thead>
+
         <tbody>
             <tr *ngFor="let proveedor of proveedores$ | async">
                 <td>{{ proveedor.payload.val().nombre }}</td>
@@ -32,5 +30,6 @@
                 </td>
             </tr>
         </tbody>
+
     </table>
-</div>
+  </div>

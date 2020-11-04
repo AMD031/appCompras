@@ -6,7 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { InisesComponent } from './autenticacion/inises/inises.component';
 import { RegistroComponent } from './autenticacion/registro/registro.component';
 import { InicioComponent } from './inicio/inicio.component';
-import { AddpresComponent } from './presupuestos/addpres/addpres.component';
 import { EditpresComponent } from './presupuestos/editpres/editpres.component';
 import { PresupuestosComponent } from './presupuestos/presupuestos/presupuestos.component';
 import { EditproveeComponent } from './proveedores/editprovee/editprovee.component';

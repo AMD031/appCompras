@@ -1,10 +1,6 @@
 <h3>Listado de Presupuestos</h3>
-
-<div class="table-responsive-sm">
-    <div class="text-right">
-        <a class="btn btn-primary " routerLink="/addpres">Añadir nuevo presupuesto</a>
-    </div>
-    <table class="table table-bordered table-striped tabla mt-3">
+<div class="table-responsive-xl ">
+    <table class="table table-bordered table-striped">
         <thead>
             <tr class="filters">
                 <th>Proveedor</th>
@@ -17,7 +13,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let presupuesto of presupuestoss | async">
-                <td>{{ presupuesto.payload.val().proveedor }}</td>
+                <td>{{  presupuesto.payload.val().proveedor}}</td>
                 <td>{{ presupuesto.payload.val().fecha }}</td>
                 <td>{{ presupuesto.payload.val().concepto }}</td>
                 <td>{{  presupuesto.payload.val().base }}</td>
@@ -34,6 +30,9 @@
                     </button>
                 </td>
             </tr>
+
+
         </tbody>
+    
     </table>
-</div>
+  </div>

@@ -10,9 +10,8 @@ import { PresupuestosService } from 'src/app/servicios/presupuestos.service';
 })
 export class PresupuestosComponent implements OnInit {
   presupuestos: any[] = [];
-  presupuestoss: Observable<SnapshotAction<unknown>[]>;
+  presupuestoss: Observable<SnapshotAction<unknown>[]> ;
   constructor(private presupuestosService: PresupuestosService) {
-   
     // this.presupuestosService.getPresupuestos().subscribe(
     //   presupuestos => {
     //     console.log(presupuestos);
@@ -47,7 +46,7 @@ export class PresupuestosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.presupuestoss = this.presupuestosService.getPresupuestos_();
+    this.presupuestoss = this.presupuestosService.getPresupuestos_() ;
   }
 
 }

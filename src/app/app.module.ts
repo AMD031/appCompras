@@ -14,7 +14,6 @@ import { AppComponent } from './app.component';
 import { ProveedoresComponent } from './proveedores/proveedores/proveedores.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { HeaderComponent } from './header/header.component';
-import { AddpresComponent } from './presupuestos/addpres/addpres.component';
 import { EditpresComponent } from './presupuestos/editpres/editpres.component';
 import { RegistroComponent } from './autenticacion/registro/registro.component';
 import { PresupuestosComponent } from './presupuestos/presupuestos/presupuestos.component';
@@ -35,7 +34,6 @@ import { environment } from 'src/environments/environment';
     ProveedoresComponent,
     InicioComponent,
     HeaderComponent,
-    AddpresComponent,
     PresupuestosComponent,
     EditpresComponent,
     RegistroComponent,
