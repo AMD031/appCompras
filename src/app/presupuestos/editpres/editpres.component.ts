@@ -25,7 +25,7 @@ export class EditpresComponent implements OnInit {
     this.activatedRouter.params.subscribe(parametros => {
       this.id = parametros['id'];
       this.presupuestoService.getPresupuesto(this.id).subscribe(
-        presupuesto => this.presupuesto = presupuesto);
+        presupuesto => this.presupuestoForm.setValue(presupuesto));
     });
   }
 

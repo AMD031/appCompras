@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'addpres', component: AddpresComponent, canActivate: [GuardService] },
   { path: 'presupuestos', component: PresupuestosComponent , canActivate: [GuardService] },
   { path: 'editpres/:id', component: EditpresComponent, canActivate: [GuardService]  },
-  { path: 'editprovee', component: EditproveeComponent, canActivate: [GuardService]  },
+  { path: 'editprovee/:id', component: EditproveeComponent, canActivate: [GuardService]  },
   { path: 'registro', component: RegistroComponent },
   { path: 'iniciosesion', component: InisesComponent },
   { path: '**', component: InicioComponent }

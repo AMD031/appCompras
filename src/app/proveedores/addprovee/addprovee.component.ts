@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NgForm } from '@angular/forms';
 import { ProveedoresService } from 'src/app/servicios/proveedores.service';
 
 @Component({
