@@ -14,7 +14,7 @@ export class PresupuestosService {
 
   // presURL = 'https://appcompras-ed180.firebaseio.com/presupuestos.json';
   // presURLnoJSON = 'https://appcompras-ed180.firebaseio.com/presupuestos';
-  
+  public presupuestoss: Array<Presupuesto> = [];
   ruta: string;
   private myDB: AngularFireList<unknown>;
 
@@ -46,8 +46,12 @@ export class PresupuestosService {
   //   );
   // }
 
-  getPresupuestos_(): Observable<SnapshotAction<unknown>[]> {
-    return this.myDB.snapshotChanges();
+  getPresupuestos(): Observable<SnapshotAction<unknown>[]> {
+    return this.myDB.snapshotChanges().pipe(
+      map(cambios =>
+        cambios.map((valor: any) =>
+          ({ key: valor.payload.key, ...valor.payload.val() })
+        )));
   }
 
 
@@ -58,7 +62,7 @@ export class PresupuestosService {
   //   );
   // }
 
-  getPresupuesto_(clave: string): Observable<unknown> {
+  getPresupuesto(clave: string): Observable<unknown> {
     return this.presupuestosDB.object(`${this.ruta}/${clave}`).valueChanges();
   }
 

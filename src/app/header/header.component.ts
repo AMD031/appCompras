@@ -20,7 +20,11 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout(): void {
-    this.autService.logout();
+    this.autService.logout().then(
+      () => {
+        this.autService.setIniciado(false);
+      }
+    );
     this.router.navigate(['/inicio']);
   }
   

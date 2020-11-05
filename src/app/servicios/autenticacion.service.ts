@@ -18,23 +18,18 @@ export class AutenticacionService {
     this.iniciado = false;
   }
 
-  registroUsuario(userdata): void {
-
-    firebase.auth().createUserWithEmailAndPassword(userdata.email, userdata.password).catch(
-      err => {
-        console.log(err);
-      });
+  registroUsuario(userdata): Promise<firebase.auth.UserCredential> {
+    return firebase.auth().createUserWithEmailAndPassword(userdata.email, userdata.password);
   }
 
 
-  inicioSesion(userdata): void {
-    firebase.auth().signInWithEmailAndPassword(userdata.email, userdata.password).then(
-      response => {
-        // console.log(response);
-        this.router.navigate(['/inicio']);
-      }).then(() => { this.iniciado = true }).catch(error => { console.log(error); });
+  inicioSesion(userdata): Promise<firebase.auth.UserCredential> {
+    return firebase.auth().signInWithEmailAndPassword(userdata.email, userdata.password);
   }
 
+  setIniciado(valor: boolean): void {
+    this.iniciado = valor;
+  }
   isAuthenticated(): boolean {
 
     if (this.iniciado) {
@@ -45,18 +40,11 @@ export class AutenticacionService {
       } else {
         return false;
       }
-
-    } else {
-      return false;
     }
   }
 
-  logout(): void {
-    firebase.auth().signOut().then(
-      () => {
-        this.iniciado = false;
-      }
-    );
+  logout(): Promise<void> {
+    return firebase.auth().signOut();
   }
 
 

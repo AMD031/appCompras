@@ -1,4 +1,5 @@
 export interface Proveedor {
+    key?: string;
     nombre: string;
     cif: string;
     direccion: string;

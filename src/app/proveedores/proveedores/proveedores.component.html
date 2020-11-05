@@ -1,6 +1,15 @@
-<div class="table-responsive-sm">
+<h3>Listado de proveedores</h3>
+<div class="table-responsive-xl">
     <table class="table table-bordered table-striped">
         <thead>
+            <tr class="filter">
+                <th colspan="8" class="text-right">
+                    <div class="text-right">      
+                        <a class="btn btn-primary mb-2" routerLink="/addprovee">Agregar proveedor</a> 
+                    </div>
+                </th>
+            </tr>
+
             <tr class="filters">
                 <th>Nombre</th>
                 <th>Correo Electrónico</th>
@@ -12,10 +21,10 @@
         </thead>
 
         <tbody>
-            <tr *ngFor="let proveedor of proveedores$ | async">
-                <td>{{ proveedor.payload.val().nombre }}</td>
-                <td><a href="mailto:{{ proveedor.email}}">{{ proveedor.payload.val().email }}</a></td>
-                <td>{{ proveedor.payload.val().telefono }}</td>
+            <tr *ngFor="let proveedor of proveedoresService.proveedoress">
+                <td>{{ proveedor.nombre }}</td>
+                <td><a href="mailto:{{ proveedor.email}}">{{ proveedor.email }}</a></td>
+                <td>{{ proveedor.telefono }}</td>
                 <!-- <td> <pre>{{proveedor.key | json}}</pre></td> -->
 
                 <td>

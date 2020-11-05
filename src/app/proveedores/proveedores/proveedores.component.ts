@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SnapshotAction } from '@angular/fire/database';
 import { observable, Observable } from 'rxjs';
+import { AlertasService } from 'src/app/servicios/alertas.service';
 import { ProveedoresService } from '../../servicios/proveedores.service';
 
 @Component({
@@ -9,31 +10,43 @@ import { ProveedoresService } from '../../servicios/proveedores.service';
   styleUrls: ['./proveedores.component.css']
 })
 export class ProveedoresComponent implements OnInit {
-  //proveedores: any;
-  proveedor: any;
-  proveedores$: Observable<SnapshotAction<unknown>[]>;
 
-  constructor(private proveedoresService: ProveedoresService) {
-
-    // this.proveedor = {
-    //   nombre: '',
-    //   cif: '',
-    //   direccion: '',
-    //   cp: '',
-    //   localidad: '',
-    //   provincia: '',
-    //   telefono: null,
-    //   email: '',
-    //   contacto: ''
-    // };
+  constructor(
+    public proveedoresService: ProveedoresService,
+    private alertas: AlertasService) {
   }
 
   ngOnInit(): void {
-    this.proveedores$ = this.proveedoresService.getProveedores();
+    if (this.proveedoresService.proveedoress.length <= 0) {
+      this.cargarDatos();
+    }
   }
 
-  removeProvedor(clave: string): void {
-    this.proveedoresService.removeProvedor(clave);
+  cargarDatos(): void {
+    this.alertas.mostrarCarga('Cargando', 'Recuperando datos');
+    /*this.proveedores$ = */
+    this.proveedoresService.getProveedores().subscribe(
+      (valores: any) => {
+        this.proveedoresService.proveedoress = valores;
+        this.alertas.ocultar();
+      },
+      (err: any) => {
+        this.alertas.ocultar();
+        this.alertas.notificacion(err, 'error');
+      });
+  }
+
+  removeProvedor(clave: string): void{
+    this.alertas.alertaBorrar('Proveedor').then(
+      (result) => {
+        if (result.isConfirmed) {
+          // tslint:disable-next-line: no-unused-expression
+          clave && this.proveedoresService.removeProvedor(clave).then(
+            () => {
+              this.alertas.notificacion('Borrando', 'info');
+            });
+        }
+      });
   }
 
 }

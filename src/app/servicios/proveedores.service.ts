@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList, SnapshotAction } from '@angular/fire/database';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Proveedor } from '../modelos/proveedor';
 @Injectable({
   providedIn: 'root'
@@ -8,42 +9,23 @@ import { Proveedor } from '../modelos/proveedor';
 export class ProveedoresService {
   ruta: string;
   private myDB: AngularFireList<unknown>;
+  public proveedoress: Array<Proveedor> = [];
 
   constructor(private proveedoresDB: AngularFireDatabase) {
-    this.ruta  = 'proveedores';
+    this.ruta = 'proveedores';
     this.myDB = this.proveedoresDB.list(this.ruta);
   }
-
-  // proveedores: any = [
-  //   {
-  //     nombre: 'Telefónica',
-  //     cif: 'B12345678',
-  //     direccion: 'Paseo de la Castellana, 100',
-  //     cp: '28.010', localidad: 'Madrid',
-  //     provincia: 'Madrid', telefono: 911111111,
-  //     email: 'info@telefonica.com',
-  //     contacto: 'Juan Pérez'
-  //   },
-  //   {
-  //     nombre: 'Iberdrola',
-  //     cif: 'B87654321',
-  //     direccion: 'Príncipe de Vergara, 200',
-  //     cp: '28.015',
-  //     localidad: 'Madrid',
-  //     provincia: 'Madrid',
-  //     telefono: 922222222,
-  //     email: 'info@iberdrola.com',
-  //     contacto: 'Laura Martínez'
-  //   }
-  // ];
 
   public addProveedor(proveedor: Proveedor): firebase.database.ThenableReference {
     return this.myDB.push(proveedor);
   }
 
   getProveedores(): Observable<SnapshotAction<unknown>[]> {
-    // return this.proveedores;
-    return this.myDB.snapshotChanges();
+    return this.myDB.snapshotChanges().pipe(
+      map(cambios =>
+        cambios.map((valor: any) =>
+          ({ key: valor.payload.key, ...valor.payload.val() })
+        )));
   }
 
   getProveedor(clave: string): Observable<unknown> {
@@ -57,6 +39,5 @@ export class ProveedoresService {
   public updateProvedor(clave: string, valor: any): Promise<void> {
     return this.myDB.update(clave, valor);
   }
-
 
 }

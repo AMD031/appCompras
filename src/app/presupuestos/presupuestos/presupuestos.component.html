@@ -1,7 +1,18 @@
 <h3>Listado de Presupuestos</h3>
-<div class="table-responsive-xl ">
+
+<div class="table-responsive-xl">
+
+
     <table class="table table-bordered table-striped">
         <thead>
+            <tr class="filters">
+                <th colspan="8" class="text-right">
+                    <div class="text-right">
+                        <a class="btn btn-primary mb-2" routerLink="/addpres">Agregar presupuesto</a> 
+                    </div>
+                </th>
+            </tr>
+
             <tr class="filters">
                 <th>Proveedor</th>
                 <th>Fecha</th>
@@ -9,26 +20,31 @@
                 <th>Base</th>
                 <th>IVA</th>
                 <th>Total</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let presupuesto of presupuestoss | async">
-                <td>{{  presupuesto.payload.val().proveedor}}</td>
-                <td>{{ presupuesto.payload.val().fecha }}</td>
-                <td>{{ presupuesto.payload.val().concepto }}</td>
-                <td>{{  presupuesto.payload.val().base }}</td>
-                <td>{{  presupuesto.payload.val().iva }}</td>
-                <td>{{  presupuesto.payload.val().total }}</td>
+            <tr *ngFor="let presupuesto of this.presupuestosService.presupuestoss">
+                <td>{{  presupuesto.proveedor }}</td>
+                <td>{{  presupuesto.fecha  }}</td>
+                <td>{{  presupuesto.concepto  }}</td>
+                <td>{{  presupuesto.base   }}</td>
+                <td>{{  presupuesto.iva }}</td>
+                <td>{{  presupuesto.total }}</td>
+               
                 <td>
                     <button type="button" class="btn btn-success" [routerLink]="['/editpres', presupuesto.key]">
                         Editar
                     </button>
                 </td>
+
                 <td>
-                    <button class="btn btn-danger" (click)="eliminarPresupuesto(presupuesto.id$)">
+                    <button class="btn btn-danger" (click)="eliminarPresupuesto(presupuesto.key)">
                         Eliminar
                     </button>
                 </td>
+                
             </tr>
 
 

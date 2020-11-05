@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AutenticacionService } from '../../servicios/autenticacion.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertasService } from 'src/app/servicios/alertas.service';
 @Component({
   selector: 'app-inises',
   templateUrl: './inises.component.html',
@@ -9,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class InisesComponent implements OnInit {
 
-  mensaje = false;
+  // mensaje = false;
   loginForm: FormGroup;
   userdata: any;
 
@@ -17,7 +18,11 @@ export class InisesComponent implements OnInit {
     private formBuilder: FormBuilder,
     private autService: AutenticacionService,
     private router: Router,
-    private activatedRouter: ActivatedRoute) { }
+    private activatedRouter: ActivatedRoute,
+    private alerta: AlertasService
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -31,12 +36,22 @@ export class InisesComponent implements OnInit {
 
   onSubmit(): void {
     this.userdata = this.saveUserdata();
-    this.autService.inicioSesion(this.userdata);
-    setTimeout(() => {
-      if (this.isAuth() === false) {
-        this.mensaje = true;
-      }
-    }, 2000);
+    this.alerta.mostrarCarga('Iniciando seccion', '');
+    this.autService.inicioSesion(this.userdata).then(
+      () => {
+        this.alerta.ocultar();
+        this.autService.setIniciado(true);
+        this.router.navigate(['/inicio']);
+      }).catch(error => {
+        // console.log(error);
+        this.alerta.notificacion(`${error}`, 'error');
+      });
+
+    // setTimeout(() => {
+    //   if (this.isAuth() === false) {
+    //     this.mensaje = true;
+    //   }
+    // }, 2000);
   }
 
   saveUserdata(): object {

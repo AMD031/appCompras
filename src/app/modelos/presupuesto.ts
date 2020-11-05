@@ -1,4 +1,5 @@
 export interface Presupuesto {
+    key?: string;
     proveedor: string;
     fecha: string;
     concepto: string;

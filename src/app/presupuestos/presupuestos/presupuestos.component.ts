@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SnapshotAction } from '@angular/fire/database';
 import { Observable } from 'rxjs';
+import { Presupuesto } from 'src/app/modelos/presupuesto';
+import { AlertasService } from 'src/app/servicios/alertas.service';
 import { PresupuestosService } from 'src/app/servicios/presupuestos.service';
 
 @Component({
@@ -9,9 +11,10 @@ import { PresupuestosService } from 'src/app/servicios/presupuestos.service';
   styleUrls: ['./presupuestos.component.css']
 })
 export class PresupuestosComponent implements OnInit {
-  presupuestos: any[] = [];
-  presupuestoss: Observable<SnapshotAction<unknown>[]> ;
-  constructor(private presupuestosService: PresupuestosService) {
+
+  constructor(
+    public presupuestosService: PresupuestosService,
+    private alertas: AlertasService) {
     // this.presupuestosService.getPresupuestos().subscribe(
     //   presupuestos => {
     //     console.log(presupuestos);
@@ -41,12 +44,43 @@ export class PresupuestosComponent implements OnInit {
   //   });
   // }
 
-  eliminarPresupuesto(id$): void{
-    this.presupuestosService.removePresupuesto(id$);
+  eliminarPresupuesto(clave): void {
+    this.alertas.alertaBorrar('Proveedor').then(
+      (result) => {
+        if (result.isConfirmed) {
+          // tslint:disable-next-line: no-unused-expression
+          clave && this.presupuestosService.removePresupuesto(clave).then(
+            () => {
+              this.alertas.notificacion('Borrando', 'info');
+            });
+        }
+      });
+
+
   }
 
   ngOnInit(): void {
-    this.presupuestoss = this.presupuestosService.getPresupuestos_() ;
+    if (this.presupuestosService.presupuestoss.length <= 0) {
+      this.cargarDatos();
+    }
   }
+
+  cargarDatos(): void {
+    this.alertas.mostrarCarga('Cargando', 'Recuperando datos');
+    this.presupuestosService.getPresupuestos().subscribe(
+      (valores: any) => {
+        this.presupuestosService.presupuestoss = valores;
+        this.alertas.ocultar();
+      },
+      (err: any) => {
+        this.alertas.ocultar();
+        this.alertas.notificacion(err, 'error');
+      });
+
+
+
+
+  }
+
 
 }

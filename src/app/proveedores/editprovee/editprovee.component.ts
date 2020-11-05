@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProveedoresService } from 'src/app/servicios/proveedores.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AlertasService } from 'src/app/servicios/alertas.service';
 
 @Component({
   selector: 'app-editprovee',
@@ -16,15 +17,17 @@ export class EditproveeComponent implements OnInit {
     private pf: FormBuilder,
     private proveedoresService: ProveedoresService,
     private activatedRouter: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private alertas: AlertasService
   ) {
     this.activatedRouter.params.subscribe(parametros => {
       this.id = parametros['id'];
 
       // tslint:disable-next-line: no-unused-expression
       this.id && this.proveedoresService.getProveedor(this.id).subscribe(
-        proveedor => this.proveedorForm.setValue(proveedor)
+        proveedor =>  proveedor && this.proveedorForm.setValue(proveedor)
       );
+
     });
 
   }
@@ -84,16 +87,17 @@ export class EditproveeComponent implements OnInit {
 
 
   onSubmit(): void {
-
     this.proveedor = this.savePresupuesto();
     if (this.proveedor && this.id) {
       this.proveedoresService.updateProvedor(this.id, this.proveedor).then(
         () => {
           this.router.navigate(['/proveedores']);
         });
-    } else if (this.proveedor) {
-      this.proveedoresService.addProveedor(this.proveedor).then(
-      );
+      }else if (this.proveedor) {
+         this.proveedoresService.addProveedor(this.proveedor).then(
+           () => {
+            this.alertas.notificacion('Cambio realizado', 'success');
+           });
     }
     this.proveedorForm.reset();
   }

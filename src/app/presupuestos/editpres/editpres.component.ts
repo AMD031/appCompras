@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PresupuestosService } from '../../servicios/presupuestos.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AlertasService } from 'src/app/servicios/alertas.service';
 
 @Component({
   selector: 'app-editpres',
@@ -21,11 +22,14 @@ export class EditpresComponent implements OnInit {
     private pf: FormBuilder,
     private presupuestoService: PresupuestosService,
     private router: Router,
-    private activatedRouter: ActivatedRoute) {
+    private activatedRouter: ActivatedRoute,
+    private alertas: AlertasService
+    ) {
+      
     this.activatedRouter.params.subscribe(parametros => {
       this.id = parametros['id'];
-      this.presupuestoService.getPresupuesto_(this.id).subscribe(
-       presupuesto => this.presupuestoForm.setValue(presupuesto));
+      this.presupuestoService.getPresupuesto(this.id).subscribe(
+       presupuesto => presupuesto && this.presupuestoForm.setValue(presupuesto));
     });
   }
 
@@ -57,6 +61,7 @@ export class EditpresComponent implements OnInit {
     if (this.presupuesto && this.id) {
       this.presupuestoService.updatePresupuesto(this.id, this.presupuesto).then(
         () => {
+          this.alertas.notificacion('Cambio realizado', 'success')
           this.router.navigate(['/presupuestos']);
         });
     } else if (this.presupuesto) {
