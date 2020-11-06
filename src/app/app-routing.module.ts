@@ -16,7 +16,8 @@ import { ProveedoresComponent } from './proveedores/proveedores/proveedores.comp
 import { GuardService } from './servicios/guard.service';
 
 const routes: Routes = [
-  { path: '', component: InicioComponent, canActivate: [GuardService]  },
+  { path: '', component: InisesComponent , canActivate: [GuardService]  },
+  { path: 'inicio', component: InicioComponent, canActivate: [GuardService]  },
   { path: 'proveedores', component: ProveedoresComponent, canActivate: [GuardService]  },
   { path: 'addprovee', component: EditproveeComponent  , canActivate: [GuardService]},
   { path: 'addpres', component: EditpresComponent, canActivate: [GuardService] },
@@ -25,7 +26,7 @@ const routes: Routes = [
   { path: 'editprovee/:id', component: EditproveeComponent, canActivate: [GuardService]  },
   { path: 'registro', component: RegistroComponent },
   { path: 'iniciosesion', component: InisesComponent },
-  { path: '**', component: InicioComponent }
+  { path: '**', component: InisesComponent }
 ];
 
 @NgModule({

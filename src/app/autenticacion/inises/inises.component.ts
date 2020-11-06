@@ -21,7 +21,7 @@ export class InisesComponent implements OnInit {
     private activatedRouter: ActivatedRoute,
     private alerta: AlertasService
   ) {
-
+    this.redirecionar();
   }
 
   ngOnInit(): void {
@@ -32,6 +32,13 @@ export class InisesComponent implements OnInit {
       Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
       Validators.minLength(6)]]
     });
+  }
+
+  redirecionar(): void{
+    console.log(this.isAuth());
+    if (this.isAuth()){
+      this.router.navigate(['/inicio']);
+    }
   }
 
   onSubmit(): void {

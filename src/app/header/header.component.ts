@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
         this.autService.setIniciado(false);
       }
     );
-    this.router.navigate(['/inicio']);
+    this.router.navigate(['/iniciosesion']);
   }
   
 

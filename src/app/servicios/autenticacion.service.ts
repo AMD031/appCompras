@@ -41,12 +41,11 @@ export class AutenticacionService {
   isAuthenticated(): boolean {
     if (this.iniciado || localStorage.getItem('uid')) {
       let user = null;
-    
-      if (!localStorage.getItem('uid') || !localStorage.getItem('user')) {
+
+      if (!localStorage.getItem('uid') && !localStorage.getItem('user')) {
         user = firebase.auth().currentUser;
-        localStorage.setItem('user' , 'activo');
+        localStorage.setItem('user', 'activo');
       }
-      
       //console.log(user);
       if (localStorage.getItem('user') || localStorage.getItem('uid')) {
         return true;
@@ -64,6 +63,7 @@ export class AutenticacionService {
     if (localStorage.getItem('user')) {
       localStorage.removeItem('user');
     }
+
 
     return firebase.auth().signOut();
   }
