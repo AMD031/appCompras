@@ -25,7 +25,7 @@ export class EditproveeComponent implements OnInit {
 
       // tslint:disable-next-line: no-unused-expression
       this.id && this.proveedoresService.getProveedor(this.id).subscribe(
-        proveedor =>  proveedor && this.proveedorForm.setValue(proveedor)
+        proveedor => proveedor && this.proveedorForm.setValue(proveedor)
       );
 
     });
@@ -93,11 +93,11 @@ export class EditproveeComponent implements OnInit {
         () => {
           this.router.navigate(['/proveedores']);
         });
-      }else if (this.proveedor) {
-         this.proveedoresService.addProveedor(this.proveedor).then(
-           () => {
-            this.alertas.notificacion('Cambio realizado', 'success');
-           });
+    } else if (this.proveedor) {
+      this.proveedoresService.addProveedor(this.proveedor).then(
+        () => {
+          this.alertas.notificacion('Cambio realizado', 'success');
+        });
     }
     this.proveedorForm.reset();
   }
@@ -126,9 +126,10 @@ export class EditproveeComponent implements OnInit {
       cp: ['', Validators.required],
       localidad: ['', Validators.required],
       provincia: [null, Validators.required],
-      telefono: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(12)]],
+      telefono: ['', [Validators.required, Validators.minLength(9), Validators.pattern(/^-?(0|[1-9]\d*)?$/) ]],
       email: ['', [Validators.required, Validators.email]],
       contacto: ['', Validators.required],
+
     });
   }
 

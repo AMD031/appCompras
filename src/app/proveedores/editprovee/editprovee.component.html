@@ -111,11 +111,11 @@
                 <i class="fa fa-exclamation-circle uncheck"
                     *ngIf="proveedorForm.controls.telefono.invalid &&  proveedorForm.controls.telefono.touched"></i>
                 <!-- campo formulario -->
-                <input type="number" class="form-control" id="telefono" formControlName="telefono">
+                <input type="text" class="form-control" id="telefono" formControlName="telefono">
                 <!-- mensaje -->
                 <p class="alert alert-danger"
                     *ngIf="proveedorForm.controls.telefono.invalid && proveedorForm.controls.telefono.touched">
-                    El campo telefono es obligatorio.
+                     El campo telefono es obligatorio y no puede contener letras.
                 </p>
             </div>
 
@@ -152,7 +152,6 @@
             <button type="submit" class="btn btn-success" [disabled]="!proveedorForm.valid">
                 <span *ngIf="id">Editar Proveedor</span>
                 <span *ngIf="!id">Añadir proveedor</span>
-          
             </button>
 
             <!-- <p class="alert alert-danger " *ngIf="!proveedorForm.valid">

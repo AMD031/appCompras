@@ -27,9 +27,6 @@ export class HeaderComponent implements OnInit {
     );
     this.router.navigate(['/iniciosesion']);
   }
-  
-
-
     ngOnInit(): void {
     }
 
