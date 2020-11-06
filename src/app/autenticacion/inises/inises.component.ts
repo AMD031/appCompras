@@ -62,6 +62,15 @@ export class InisesComponent implements OnInit {
     return saveUserdata;
   }
 
+  loginGoogle(): void{
+    this.autService.inicioSesionGoogle().then(
+      (UserCredential) => {
+        localStorage.setItem('uid', UserCredential.user.uid);
+        this.router.navigate(['/inicio']);
+      });
+  }
+
+
 
   isAuth(): boolean {
     return this.autService.isAuthenticated();

@@ -27,15 +27,28 @@ export class AutenticacionService {
     return firebase.auth().signInWithEmailAndPassword(userdata.email, userdata.password);
   }
 
+  inicioSesionGoogle(): Promise<firebase.auth.UserCredential> {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    // provider.addScope('profile');
+    // provider.addScope('email');
+    return this.FAuth.signInWithPopup(provider);
+  }
+
   setIniciado(valor: boolean): void {
     this.iniciado = valor;
   }
-  isAuthenticated(): boolean {
 
-    if (this.iniciado) {
-      const user = firebase.auth().currentUser;
+  isAuthenticated(): boolean {
+    if (this.iniciado || localStorage.getItem('uid')) {
+      let user = null;
+    
+      if (!localStorage.getItem('uid') || !localStorage.getItem('user')) {
+        user = firebase.auth().currentUser;
+        localStorage.setItem('user' , 'activo');
+      }
+      
       //console.log(user);
-      if (user) {
+      if (localStorage.getItem('user') || localStorage.getItem('uid')) {
         return true;
       } else {
         return false;
@@ -44,6 +57,14 @@ export class AutenticacionService {
   }
 
   logout(): Promise<void> {
+    if (localStorage.getItem('uid')) {
+      localStorage.removeItem('uid');
+    }
+
+    if (localStorage.getItem('user')) {
+      localStorage.removeItem('user');
+    }
+
     return firebase.auth().signOut();
   }
 
