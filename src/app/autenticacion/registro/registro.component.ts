@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AutenticacionService } from '../../servicios/autenticacion.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AlertasService } from 'src/app/servicios/alertas.service';
 
 @Component({
   selector: 'app-registro',
@@ -14,7 +15,9 @@ export class RegistroComponent implements OnInit {
     private formBuilder: FormBuilder,
     private autService: AutenticacionService,
     private router: Router,
-    private activatedRouter: ActivatedRoute) { }
+    private activatedRouter: ActivatedRoute,
+    private alerta: AlertasService,
+    ) { }
   registroForm: FormGroup;
   userdata: any;
 
@@ -73,6 +76,8 @@ export class RegistroComponent implements OnInit {
         if (this.autService.isAuthenticated()) {
           this.router.navigate(['/inicio']);
         }
+      }).catch( (err) =>{
+        this.alerta.notificacion( err , 'error');
       });
   }
 

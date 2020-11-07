@@ -63,6 +63,8 @@ export class InisesComponent implements OnInit {
       (UserCredential) => {
         localStorage.setItem('uid', UserCredential.user.uid);
         this.router.navigate(['/inicio']);
+      }).catch( (err) =>{
+        this.alerta.notificacion( err , 'error');
       });
 
   }
