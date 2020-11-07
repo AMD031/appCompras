@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SnapshotAction } from '@angular/fire/database';
-import { Observable } from 'rxjs';
 import { Presupuesto } from 'src/app/modelos/presupuesto';
 import { AlertasService } from 'src/app/servicios/alertas.service';
 import { PresupuestosService } from 'src/app/servicios/presupuestos.service';
@@ -11,6 +10,9 @@ import { PresupuestosService } from 'src/app/servicios/presupuestos.service';
   styleUrls: ['./presupuestos.component.css']
 })
 export class PresupuestosComponent implements OnInit {
+  paginaActual = 1;
+  cantidadItem = 0;
+  cantidadItemPagina = 5;
 
   constructor(
     public presupuestosService: PresupuestosService,
@@ -25,6 +27,7 @@ export class PresupuestosComponent implements OnInit {
     //       this.presupuestos.push(presupuestos[id$]);
     //     }
     //   });
+
 
   }
 
@@ -70,17 +73,19 @@ export class PresupuestosComponent implements OnInit {
     this.presupuestosService.getPresupuestos().subscribe(
       (valores: any) => {
         this.presupuestosService.presupuestoss = valores;
+        this.cantidadItem = this.presupuestosService.presupuestoss.length;
         this.alertas.ocultar();
       },
       (err: any) => {
         this.alertas.ocultar();
         this.alertas.notificacion(err, 'error');
       });
-
-
-
-
   }
+
+
+  cambiarPagina(event): void {
+    this.paginaActual = event;
+  }  
 
 
 }

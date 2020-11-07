@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AlertasService } from '../servicios/alertas.service';
 import { AutenticacionService } from '../servicios/autenticacion.service';
 
 @Component({
@@ -8,11 +9,16 @@ import { AutenticacionService } from '../servicios/autenticacion.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
+  private uid;
   constructor(
     private autService: AutenticacionService,
     private router: Router,
-    private activatedRouter: ActivatedRoute) { }
+    private activatedRouter: ActivatedRoute,
+    private alerta: AlertasService
+  ) {
+    //this.obtenerUsuarioActual();
+    this.redirecionar();
+  }
 
 
   isAuth(): boolean {
@@ -20,14 +26,34 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout(): void {
+    //this.autService.setIniciado(true);
     this.autService.logout().then(
       () => {
-        this.autService.setIniciado(false);
-      }
-    );
-    this.router.navigate(['/iniciosesion']);
+        //this.autService.setIniciado(false);
+        this.router.navigate(['/iniciosesion']);
+      });
   }
-    ngOnInit(): void {
-    }
 
+  redirecionar(): void {
+    if (this.isAuth()) {
+      this.router.navigate(['/inicio']);
+    }
   }
+
+  // obtenerUsuarioActual(): void {
+  //   this.autService.FAuth.onAuthStateChanged(
+  //     (user) => {
+  //       if (user) {
+  //         //this.autService.isAuthenticated(user.uid);
+  //       }
+  //     }, (error) => {
+  //       this.alerta.notificacion(error.message, 'error');
+  //     });
+  // }
+
+
+
+  ngOnInit(): void {
+  }
+
+}

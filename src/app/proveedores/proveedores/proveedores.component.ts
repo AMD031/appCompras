@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { SnapshotAction } from '@angular/fire/database';
-import { observable, Observable } from 'rxjs';
+import { Component, NgZone, OnInit } from '@angular/core';
+import { promise } from 'protractor';
+import { timeout } from 'rxjs/operators';
+import { Proveedor } from 'src/app/modelos/proveedor';
 import { AlertasService } from 'src/app/servicios/alertas.service';
 import { ProveedoresService } from '../../servicios/proveedores.service';
 
@@ -10,10 +11,14 @@ import { ProveedoresService } from '../../servicios/proveedores.service';
   styleUrls: ['./proveedores.component.css']
 })
 export class ProveedoresComponent implements OnInit {
-
+  paginaActual = 1;
+  cantidadItem = 0;
+  cantidadItemPagina = 5;
   constructor(
     public proveedoresService: ProveedoresService,
-    private alertas: AlertasService) {
+    private alertas: AlertasService,
+  ) {
+
   }
 
   ngOnInit(): void {
@@ -22,21 +27,24 @@ export class ProveedoresComponent implements OnInit {
     }
   }
 
-  cargarDatos(): void {
+  async cargarDatos() {
     this.alertas.mostrarCarga('Cargando', 'Recuperando datos');
     /*this.proveedores$ = */
     this.proveedoresService.getProveedores().subscribe(
       (valores: any) => {
         this.proveedoresService.proveedoress = valores;
+        this.cantidadItem = this.proveedoresService.proveedoress.length;
         this.alertas.ocultar();
       },
       (err: any) => {
         this.alertas.ocultar();
         this.alertas.notificacion(err, 'error');
       });
+
+    //this.siguiente();
   }
 
-  removeProvedor(clave: string): void{
+  removeProvedor(clave: string): void {
     this.alertas.alertaBorrar('Proveedor').then(
       (result) => {
         if (result.isConfirmed) {
@@ -48,5 +56,44 @@ export class ProveedoresComponent implements OnInit {
         }
       });
   }
+  cambiarPagina(event): void {
+    this.paginaActual = event;
+  }
+  
+  // async siguiente(): Promise<void> {
+  //   try {
+  //     //this.alertas.mostrarCarga('Cargando', 'Recuperando datos');
+
+  //     this.proveedoresService.getProvedoresPaginado().then(
+  //       (res) => {
+  //         console.log('res ', res);
+  //         this.proveedoresService.proveedoress = [...res];
+  //         // this.alertas.ocultar();
+  //       });
+
+
+  //   } catch (err) {
+  //     this.alertas.ocultar();
+  //     this.alertas.notificacion(err, 'error');
+  //   }
+  // }
+
+  // async atras(): Promise<void> {
+  //   try {
+  //     //this.alertas.mostrarCarga('Cargando', 'Recuperando datos');
+  //     this.proveedoresService.getProvedoresPaginadoAtras().then(
+  //       (res) => {
+  //         //console.log('res ', res);
+  //         //this.proveedoresService.proveedoress = [...res];
+  //         // this.alertas.ocultar();
+  //       });
+  //   } catch (err) {
+  //     this.alertas.ocultar();
+  //     this.alertas.notificacion(err, 'error');
+  //   }
+  // }
+
+
+
 
 }

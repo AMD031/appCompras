@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProveedoresService } from 'src/app/servicios/proveedores.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertasService } from 'src/app/servicios/alertas.service';
+import { Proveedor } from 'src/app/modelos/proveedor';
 
 @Component({
   selector: 'app-editprovee',
@@ -18,11 +19,10 @@ export class EditproveeComponent implements OnInit {
     private proveedoresService: ProveedoresService,
     private activatedRouter: ActivatedRoute,
     private router: Router,
-    private alertas: AlertasService
+    private alertas: AlertasService,
   ) {
     this.activatedRouter.params.subscribe(parametros => {
       this.id = parametros['id'];
-
       // tslint:disable-next-line: no-unused-expression
       this.id && this.proveedoresService.getProveedor(this.id).subscribe(
         proveedor => proveedor && this.proveedorForm.setValue(proveedor)
@@ -91,12 +91,14 @@ export class EditproveeComponent implements OnInit {
     if (this.proveedor && this.id) {
       this.proveedoresService.updateProvedor(this.id, this.proveedor).then(
         () => {
+          this.alertas.notificacion('Cambio realizado', 'success');
           this.router.navigate(['/proveedores']);
         });
     } else if (this.proveedor) {
       this.proveedoresService.addProveedor(this.proveedor).then(
         () => {
           this.alertas.notificacion('Cambio realizado', 'success');
+          this.router.navigate(['/proveedores']);
         });
     }
     this.proveedorForm.reset();

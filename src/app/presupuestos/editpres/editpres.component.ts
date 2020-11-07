@@ -17,19 +17,18 @@ export class EditpresComponent implements OnInit {
   iva: any = 0;
   total: any = 0;
   id: string;
-
   constructor(
     private pf: FormBuilder,
     private presupuestoService: PresupuestosService,
     private router: Router,
     private activatedRouter: ActivatedRoute,
-    private alertas: AlertasService
-    ) {
-      
+    private alertas: AlertasService,
+  ) {
+
     this.activatedRouter.params.subscribe(parametros => {
       this.id = parametros['id'];
       this.presupuestoService.getPresupuesto(this.id).subscribe(
-       presupuesto => presupuesto && this.presupuestoForm.setValue(presupuesto));
+        presupuesto => presupuesto && this.presupuestoForm.setValue(presupuesto));
     });
   }
 
@@ -66,7 +65,10 @@ export class EditpresComponent implements OnInit {
         });
     } else if (this.presupuesto) {
       this.presupuestoService.addPresupuestos(this.presupuesto).then(
-      );
+        () => {
+          this.alertas.notificacion('Cambio realizado', 'success')
+          this.router.navigate(['/presupuestos']);
+        });
     }
 
 

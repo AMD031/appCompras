@@ -3,11 +3,21 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr class="filter">
+               <!--  <th colspan="1" class="text-left">
+                    <div class="text-right btn btn-info" (click)="atras()">      
+                        Atrás
+                    </div>
+                </th> -->
                 <th colspan="8" class="text-right">
                     <div class="text-right">      
                         <a class="btn btn-primary mb-2" routerLink="/addprovee">Agregar proveedor</a> 
                     </div>
                 </th>
+                <!-- <th colspan="1" class="text-right">
+                    <div class="text-right btn btn-info" (click)="siguiente()">      
+                        Siguiente
+                    </div>
+                </th> -->
             </tr>
 
             <tr class="filters">
@@ -21,7 +31,11 @@
         </thead>
 
         <tbody>
-            <tr *ngFor="let proveedor of proveedoresService.proveedoress">
+            <tr *ngFor="let proveedor of  this.proveedoresService.proveedoress | paginate : {
+                itemsPerPage: cantidadItemPagina,
+                currentPage: paginaActual,
+                totalItems: cantidadItem
+              }; let i = index" [class.active]="i == currentIndex">
                 <td>{{ proveedor.nombre }}</td>
                 <td><a href="mailto:{{ proveedor.email}}">{{ proveedor.email }}</a></td>
                 <td>{{ proveedor.telefono }}</td>
@@ -41,4 +55,12 @@
         </tbody>
 
     </table>
+    <div class="d-flex justify-content-center">
+        <pagination-controls 
+          responsive="true" 
+          previousLabel="Anterior" 
+          nextLabel="Siguiente" 
+          (pageChange)="cambiarPagina($event)">
+        </pagination-controls>
+      </div>
   </div>

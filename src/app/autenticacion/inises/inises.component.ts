@@ -21,7 +21,6 @@ export class InisesComponent implements OnInit {
     private activatedRouter: ActivatedRoute,
     private alerta: AlertasService
   ) {
-    this.redirecionar();
   }
 
   ngOnInit(): void {
@@ -34,31 +33,21 @@ export class InisesComponent implements OnInit {
     });
   }
 
-  redirecionar(): void{
-    console.log(this.isAuth());
-    if (this.isAuth()){
-      this.router.navigate(['/inicio']);
-    }
-  }
-
   onSubmit(): void {
     this.userdata = this.saveUserdata();
     this.alerta.mostrarCarga('Iniciando seccion', '');
+
+    // tslint:disable-next-line: no-unused-expression
     this.autService.inicioSesion(this.userdata).then(
-      () => {
+      (UserCredential) => {
         this.alerta.ocultar();
-        this.autService.setIniciado(true);
+        localStorage.setItem('user', UserCredential.user.uid);
+        //this.autService.setIniciado(true);
         this.router.navigate(['/inicio']);
       }).catch(error => {
         // console.log(error);
         this.alerta.notificacion(`${error}`, 'error');
       });
-
-    // setTimeout(() => {
-    //   if (this.isAuth() === false) {
-    //     this.mensaje = true;
-    //   }
-    // }, 2000);
   }
 
   saveUserdata(): object {
@@ -69,17 +58,18 @@ export class InisesComponent implements OnInit {
     return saveUserdata;
   }
 
-  loginGoogle(): void{
+  loginGoogle(): void {
     this.autService.inicioSesionGoogle().then(
       (UserCredential) => {
         localStorage.setItem('uid', UserCredential.user.uid);
         this.router.navigate(['/inicio']);
       });
+
   }
 
 
 
-  isAuth(): boolean {
+  async isAuth(): Promise<boolean> {
     return this.autService.isAuthenticated();
   }
 

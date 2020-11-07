@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router, ActivatedRoute } from '@angular/router';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 
@@ -9,22 +10,22 @@ import { Router, ActivatedRoute } from '@angular/router';
   providedIn: 'root'
 })
 export class AutenticacionService {
-  iniciado: boolean;
+  // iniciado: boolean;
 
   constructor(
     public FAuth: AngularFireAuth,
     private router: Router,
     private activatedRouter: ActivatedRoute) {
-    this.iniciado = false;
+    //this.iniciado = false;
   }
 
   registroUsuario(userdata): Promise<firebase.auth.UserCredential> {
-    return firebase.auth().createUserWithEmailAndPassword(userdata.email, userdata.password);
+    return this.FAuth.createUserWithEmailAndPassword(userdata.email, userdata.password);
   }
 
 
   inicioSesion(userdata): Promise<firebase.auth.UserCredential> {
-    return firebase.auth().signInWithEmailAndPassword(userdata.email, userdata.password);
+    return this.FAuth.signInWithEmailAndPassword(userdata.email, userdata.password);
   }
 
   inicioSesionGoogle(): Promise<firebase.auth.UserCredential> {
@@ -34,25 +35,18 @@ export class AutenticacionService {
     return this.FAuth.signInWithPopup(provider);
   }
 
-  setIniciado(valor: boolean): void {
-    this.iniciado = valor;
-  }
+  // setIniciado(valor: boolean): void {
+  //   this.iniciado = valor;
+  // }
 
   isAuthenticated(): boolean {
-    if (this.iniciado || localStorage.getItem('uid')) {
-      let user = null;
-
-      if (!localStorage.getItem('uid') && !localStorage.getItem('user')) {
-        user = firebase.auth().currentUser;
-        localStorage.setItem('user', 'activo');
-      }
-      //console.log(user);
-      if (localStorage.getItem('user') || localStorage.getItem('uid')) {
-        return true;
-      } else {
-        return false;
-      }
+    if (localStorage.getItem('user') || localStorage.getItem('uid')) {
+      return true;
+    } else {
+      return false;
     }
+
+
   }
 
   logout(): Promise<void> {
@@ -63,7 +57,6 @@ export class AutenticacionService {
     if (localStorage.getItem('user')) {
       localStorage.removeItem('user');
     }
-
 
     return firebase.auth().signOut();
   }

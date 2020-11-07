@@ -19,6 +19,7 @@ import { RegistroComponent } from './autenticacion/registro/registro.component';
 import { PresupuestosComponent } from './presupuestos/presupuestos/presupuestos.component';
 import { InisesComponent } from './autenticacion/inises/inises.component';
 import { EditproveeComponent } from './proveedores/editprovee/editprovee.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 // servicios
 import { ProveedoresService } from './servicios/proveedores.service';
@@ -49,6 +50,7 @@ import { environment } from 'src/environments/environment';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    NgxPaginationModule
   ],
   providers: [ProveedoresService, PresupuestosService, AutenticacionService],
   bootstrap: [AppComponent]

@@ -25,7 +25,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let presupuesto of this.presupuestosService.presupuestoss">
+             <tr *ngFor="let presupuesto of this.presupuestosService.presupuestoss | paginate : {
+                itemsPerPage: cantidadItemPagina,
+                currentPage: paginaActual,
+                totalItems: cantidadItem
+              }; let i = index" [class.active]="i == currentIndex">
                 <td>{{  presupuesto.proveedor }}</td>
                 <td>{{  presupuesto.fecha  }}</td>
                 <td>{{  presupuesto.concepto  }}</td>
@@ -43,12 +47,17 @@
                     <button class="btn btn-danger" (click)="eliminarPresupuesto(presupuesto.key)">
                         Eliminar
                     </button>
-                </td>
-                
+                </td> 
             </tr>
-
-
         </tbody>
     
     </table>
+    <div class="d-flex justify-content-center">
+        <pagination-controls 
+          responsive="true" 
+          previousLabel="Anterior" 
+          nextLabel="Siguiente" 
+          (pageChange)="cambiarPagina($event)">
+        </pagination-controls>
+      </div>
   </div>

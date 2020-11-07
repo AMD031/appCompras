@@ -16,7 +16,7 @@ import { ProveedoresComponent } from './proveedores/proveedores/proveedores.comp
 import { GuardService } from './servicios/guard.service';
 
 const routes: Routes = [
-  { path: '', component: InisesComponent , canActivate: [GuardService]  },
+  { path: '', component: InisesComponent   },
   { path: 'inicio', component: InicioComponent, canActivate: [GuardService]  },
   { path: 'proveedores', component: ProveedoresComponent, canActivate: [GuardService]  },
   { path: 'addprovee', component: EditproveeComponent  , canActivate: [GuardService]},
