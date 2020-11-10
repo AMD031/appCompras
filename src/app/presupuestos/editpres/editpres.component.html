@@ -17,8 +17,7 @@
                 </i>
 
                 <input type="text" class="form-control" id="proveedor" formControlName="proveedor">
-              
-              
+                
                   <p class="alert alert-danger"
                     *ngIf="presupuestoForm.controls.proveedor.invalid && presupuestoForm.controls.proveedor.touched"> El
                     campo Proveedor es obligatorio.
@@ -73,7 +72,7 @@
                 <label for="base">Base Imponible</label> 
 
                 <i class="fa fa-check-circle check" *ngIf="presupuestoForm.controls.base.valid"></i>
-
+                
                 <i class="fa fa-exclamation-circle uncheck"
                     *ngIf="presupuestoForm.controls.base.invalid && presupuestoForm.controls.base.touched"></i>
 

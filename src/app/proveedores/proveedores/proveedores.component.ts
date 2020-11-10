@@ -11,9 +11,14 @@ import { ProveedoresService } from '../../servicios/proveedores.service';
   styleUrls: ['./proveedores.component.css']
 })
 export class ProveedoresComponent implements OnInit {
+  terminoBusqueda: string = '';
   paginaActual = 1;
   cantidadItem = 0;
   cantidadItemPagina = 5;
+  // ordenar
+  key: string = 'nombre';
+  reverse: boolean = false;
+
   constructor(
     public proveedoresService: ProveedoresService,
     private alertas: AlertasService,
@@ -30,17 +35,23 @@ export class ProveedoresComponent implements OnInit {
   async cargarDatos() {
     this.alertas.mostrarCarga('Cargando', 'Recuperando datos');
     /*this.proveedores$ = */
-    this.proveedoresService.getProveedores().subscribe(
-      (valores: any) => {
-        this.proveedoresService.proveedoress = valores;
-        this.cantidadItem = this.proveedoresService.proveedoress.length;
-        this.alertas.ocultar();
-      },
-      (err: any) => {
-        this.alertas.ocultar();
-        this.alertas.notificacion(err, 'error');
-      });
 
+    try {
+      this.proveedoresService.getProveedores().subscribe(
+        (valores: any) => {
+          this.proveedoresService.proveedoress = valores;
+          this.cantidadItem = this.proveedoresService.proveedoress.length;
+          this.alertas.ocultar();
+        },
+        (err: any) => {
+          this.alertas.ocultar();
+          this.alertas.notificacion(err, 'error');
+        });
+
+    } catch (err) {
+      this.alertas.ocultar();
+      this.alertas.notificacion(err, 'error');
+    }
     //this.siguiente();
   }
 
@@ -59,7 +70,7 @@ export class ProveedoresComponent implements OnInit {
   cambiarPagina(event): void {
     this.paginaActual = event;
   }
-  
+
   // async siguiente(): Promise<void> {
   //   try {
   //     //this.alertas.mostrarCarga('Cargando', 'Recuperando datos');
@@ -93,7 +104,21 @@ export class ProveedoresComponent implements OnInit {
   //   }
   // }
 
+  buscar(e): void {
+    this.terminoBusqueda = e;
+    if (this.terminoBusqueda) {
+      this.paginaActual = 1;
+      this.cantidadItemPagina = 10000;
+      console.log(this.terminoBusqueda);
+    } else {
+      this.paginaActual = 1;
+      this.cantidadItemPagina = 5;
+    }
+  }
 
-
+  sort(key): void {
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
 
 }

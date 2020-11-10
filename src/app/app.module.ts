@@ -20,6 +20,7 @@ import { PresupuestosComponent } from './presupuestos/presupuestos/presupuestos.
 import { InisesComponent } from './autenticacion/inises/inises.component';
 import { EditproveeComponent } from './proveedores/editprovee/editprovee.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 // servicios
 import { ProveedoresService } from './servicios/proveedores.service';
@@ -28,6 +29,7 @@ import { AutenticacionService } from './servicios/autenticacion.service';
 
 // entorno
 import { environment } from 'src/environments/environment';
+import { Ng2OrderModule } from 'ng2-order-pipe';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { environment } from 'src/environments/environment';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    NgxPaginationModule
+    Ng2SearchPipeModule,
+    NgxPaginationModule,
+    Ng2OrderModule,
   ],
   providers: [ProveedoresService, PresupuestosService, AutenticacionService],
   bootstrap: [AppComponent]

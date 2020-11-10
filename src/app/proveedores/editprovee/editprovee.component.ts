@@ -125,13 +125,12 @@ export class EditproveeComponent implements OnInit {
       nombre: ['', Validators.required],
       cif: ['', Validators.required],
       direccion: ['', [Validators.required]],
-      cp: ['', Validators.required],
+      cp: ['', [ Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)] ],
       localidad: ['', Validators.required],
       provincia: [null, Validators.required],
       telefono: ['', [Validators.required, Validators.minLength(9), Validators.pattern(/^-?(0|[1-9]\d*)?$/) ]],
       email: ['', [Validators.required, Validators.email]],
       contacto: ['', Validators.required],
-
     });
   }
 

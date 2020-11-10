@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router, ActivatedRoute } from '@angular/router';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
 
 
 
@@ -11,7 +11,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class AutenticacionService {
   // iniciado: boolean;
-
+  public token: string;
   constructor(
     public FAuth: AngularFireAuth,
     private router: Router,
@@ -30,8 +30,8 @@ export class AutenticacionService {
 
   inicioSesionGoogle(): Promise<firebase.auth.UserCredential> {
     const provider = new firebase.auth.GoogleAuthProvider();
-    // provider.addScope('profile');
-    // provider.addScope('email');
+    provider.addScope('profile');
+    provider.addScope('email');
     return this.FAuth.signInWithPopup(provider);
   }
 
@@ -40,7 +40,8 @@ export class AutenticacionService {
   // }
 
   isAuthenticated(): boolean {
-    if (localStorage.getItem('user') || localStorage.getItem('uid')) {
+    if (localStorage.getItem('token') === this.token /* || localStorage.getItem('uid')*/){
+    //if ( true ) {
       return true;
     } else {
       return false;
@@ -50,15 +51,7 @@ export class AutenticacionService {
   }
 
   logout(): Promise<void> {
-    if (localStorage.getItem('uid')) {
-      localStorage.removeItem('uid');
-    }
-
-    if (localStorage.getItem('user')) {
-      localStorage.removeItem('user');
-    }
-
-    return firebase.auth().signOut();
+     return firebase.auth().signOut();
   }
 
 

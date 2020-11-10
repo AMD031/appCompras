@@ -1,6 +1,10 @@
 <h3>Listado de proveedores</h3>
 <div class="table-responsive-xl">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Buscar..." [ngModel]="terminoBusqueda" (ngModelChange)="buscar($event)">
+      </div>
     <table class="table table-bordered table-striped">
+        
         <thead>
             <tr class="filter">
                <!--  <th colspan="1" class="text-left">
@@ -21,9 +25,24 @@
             </tr>
 
             <tr class="filters">
-                <th>Nombre</th>
-                <th>Correo Electrónico</th>
-                <th>Telefono</th>
+                <th (click)="sort('nombre')" class="clic">
+                    Nombre
+                    <span  *ngIf="key =='nombre'">
+                        <i *ngIf="!reverse" class="fa fa-angle-double-up"></i>
+                        <i *ngIf="reverse" class="fa fa-angle-double-down"></i>
+                    </span>
+                
+                </th>
+                <th (click)="sort('email')" class="clic">
+                    Correo Electrónico
+                    <span  *ngIf="key =='email'">
+                        <i *ngIf="!reverse" class="fa fa-angle-double-up"></i>
+                        <i *ngIf="reverse" class="fa fa-angle-double-down"></i>
+                    </span>
+                </th>
+                <th>
+                    Telefono
+                </th>
                 <!-- <th>Key</th> -->
                 <th>Editar</th>
                 <th>Eliminar</th>
@@ -31,7 +50,7 @@
         </thead>
 
         <tbody>
-            <tr *ngFor="let proveedor of  this.proveedoresService.proveedoress | paginate : {
+            <tr *ngFor="let proveedor of  this.proveedoresService.proveedoress | orderBy: key : reverse  | filter:terminoBusqueda | paginate : {
                 itemsPerPage: cantidadItemPagina,
                 currentPage: paginaActual,
                 totalItems: cantidadItem

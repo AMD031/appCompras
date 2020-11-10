@@ -17,7 +17,7 @@ export class RegistroComponent implements OnInit {
     private router: Router,
     private activatedRouter: ActivatedRoute,
     private alerta: AlertasService,
-    ) { }
+  ) { }
   registroForm: FormGroup;
   userdata: any;
 
@@ -44,7 +44,6 @@ export class RegistroComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'), Validators.minLength(6)]]
     });
-
     this.registroForm.valueChanges.subscribe(
       data => this.onValueChanged(data));
     this.onValueChanged();
@@ -68,17 +67,42 @@ export class RegistroComponent implements OnInit {
     }
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     this.userdata = this.saveUserdata();
-    this.autService.registroUsuario(this.userdata).then(
-      (UserCredential) => {
-        localStorage.setItem('user', UserCredential.user.uid);
-        if (this.autService.isAuthenticated()) {
-          this.router.navigate(['/inicio']);
-        }
-      }).catch( (err) =>{
-        this.alerta.notificacion( err , 'error');
-      });
+    try {
+      const UserCredential = await this.autService.registroUsuario(this.userdata);
+      this.obtenerToken();
+    }catch (err){
+      this.alerta.notificacion(err , 'error');
+    }
+
+  }
+
+
+
+
+  obtenerToken(): void {
+    try {
+      this.autService.FAuth.authState.subscribe(
+        (user) => {
+          // tslint:disable-next-line: no-unused-expression
+          user && user.getIdToken().then(
+            (res: string) => {
+              //console.log('token:', res);
+              this.autService.token = res;
+              localStorage.setItem('token', res);
+              if (this.autService.isAuthenticated()) {
+                this.router.navigate(['/inicio']);
+              }
+            }
+          );
+        });
+    } catch (error) {
+      this.alerta.notificacion(error, 'error');
+    }
+
+
+
   }
 
   saveUserdata(): object {

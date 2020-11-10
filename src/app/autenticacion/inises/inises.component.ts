@@ -38,16 +38,16 @@ export class InisesComponent implements OnInit {
     this.alerta.mostrarCarga('Iniciando seccion', '');
 
     // tslint:disable-next-line: no-unused-expression
+   
     this.autService.inicioSesion(this.userdata).then(
       (UserCredential) => {
         this.alerta.ocultar();
-        localStorage.setItem('user', UserCredential.user.uid);
-        //this.autService.setIniciado(true);
-        this.router.navigate(['/inicio']);
+        this.obtenerToken();
       }).catch(error => {
         // console.log(error);
         this.alerta.notificacion(`${error}`, 'error');
       });
+
   }
 
   saveUserdata(): object {
@@ -61,14 +61,33 @@ export class InisesComponent implements OnInit {
   loginGoogle(): void {
     this.autService.inicioSesionGoogle().then(
       (UserCredential) => {
-        localStorage.setItem('uid', UserCredential.user.uid);
-        this.router.navigate(['/inicio']);
-      }).catch( (err) =>{
+        this.obtenerToken();
+      }).catch( (err) => {
         this.alerta.notificacion( err , 'error');
       });
 
   }
 
+  obtenerToken(): void {
+
+    try {
+      this.autService.FAuth.authState.subscribe(
+        (user) => {
+          // tslint:disable-next-line: no-unused-expression
+          user && user.getIdToken().then(
+            (res: string) => {
+              //console.log('token:', res);
+              this.autService.token = res;
+              localStorage.setItem('token', res);
+              this.router.navigate(['/inicio']);
+            }
+          );
+        });
+    } catch (error) {
+      this.alerta.notificacion(error, 'error');
+    }
+
+  }
 
 
   async isAuth(): Promise<boolean> {

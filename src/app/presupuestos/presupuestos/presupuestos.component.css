@@ -1,4 +1,17 @@
-.table th, .table td { 
+/* .table th, .table td { 
     border-top: none !important;
     border-left: none !important;
+} */
+
+
+
+ .clic{
+    cursor: pointer;
+  }
+
+.azul{
+  background-color: blue;
+}
+.rojo{
+  background-color: red;
 }

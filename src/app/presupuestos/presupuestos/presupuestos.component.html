@@ -1,6 +1,10 @@
 <h3>Listado de Presupuestos</h3>
 
 <div class="table-responsive-xl">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Buscar..." [ngModel]="terminoBusqueda"
+            (ngModelChange)="buscar($event)">
+    </div>
 
 
     <table class="table table-bordered table-striped">
@@ -8,24 +12,67 @@
             <tr class="filters">
                 <th colspan="8" class="text-right">
                     <div class="text-right">
-                        <a class="btn btn-primary mb-2" routerLink="/addpres">Agregar presupuesto</a> 
+                        <a class="btn btn-primary mb-2" routerLink="/addpres">Agregar presupuesto</a>
                     </div>
                 </th>
             </tr>
 
+
             <tr class="filters">
-                <th>Proveedor</th>
-                <th>Fecha</th>
-                <th>Concepto</th>
-                <th>Base</th>
-                <th>IVA</th>
-                <th>Total</th>
-                <th>Editar</th>
-                <th>Eliminar</th>
+
+                <th (click)="sort('proveedor')" class="clic">
+                        Proveedor
+                        <span  *ngIf="key =='proveedor'">
+                            <i *ngIf="!reverse" class="fa fa-angle-double-up"></i>
+                            <i *ngIf="reverse" class="fa fa-angle-double-down"></i>
+                        </span>
+                </th>
+                <th (click)="sort('fecha')" class="clic">
+                    Fecha
+                    <span  *ngIf="key =='fecha'">
+                        <i *ngIf="!reverse" class="fa fa-angle-double-up"></i>
+                        <i *ngIf="reverse" class="fa fa-angle-double-down"></i>
+                    </span>
+                </th>
+                <th (click)="sort('concepto')" class="clic">
+                    Concepto
+                    <span  *ngIf="key =='concepto'">
+                        <i *ngIf="!reverse" class="fa fa-angle-double-up"></i>
+                        <i *ngIf="reverse" class="fa fa-angle-double-down"></i>
+                    </span>
+                </th>
+                <th (click)="sort('base')" class="clic">
+                    Base
+                    <span  *ngIf="key =='base'">
+                        <i *ngIf="!reverse" class="fa fa-angle-double-up"></i>
+                        <i *ngIf="reverse" class="fa fa-angle-double-down"></i>
+                    </span>
+                </th>
+                <th (click)="sort('iva')" class="clic">
+                    IVA
+                    <span  *ngIf="key =='iva'">
+                        <i *ngIf="!reverse" class="fa fa-angle-double-up"></i>
+                        <i *ngIf="reverse" class="fa fa-angle-double-down"></i>
+                    </span>
+                </th>
+                <th (click)="sort('total')" class="clic" >
+                    Total
+                    <span  *ngIf="key =='total'">
+                        <i *ngIf="!reverse" class="fa fa-angle-double-up"></i>
+                        <i *ngIf="reverse" class="fa fa-angle-double-down"></i>
+                    </span>
+                </th>
+                <th>
+                    Editar
+                </th>
+                <th>
+                    Eliminar
+                </th>
             </tr>
         </thead>
         <tbody>
-             <tr *ngFor="let presupuesto of this.presupuestosService.presupuestoss | paginate : {
+            <tr *ngFor="let presupuesto of this.presupuestosService.presupuestoss | orderBy: key : reverse | filter:terminoBusqueda |
+             paginate : {
                 itemsPerPage: cantidadItemPagina,
                 currentPage: paginaActual,
                 totalItems: cantidadItem
@@ -36,7 +83,7 @@
                 <td>{{  presupuesto.base   }}</td>
                 <td>{{  presupuesto.iva }}</td>
                 <td>{{  presupuesto.total }}</td>
-               
+
                 <td>
                     <button type="button" class="btn btn-success" [routerLink]="['/editpres', presupuesto.key]">
                         Editar
@@ -47,17 +94,15 @@
                     <button class="btn btn-danger" (click)="eliminarPresupuesto(presupuesto.key)">
                         Eliminar
                     </button>
-                </td> 
+                </td>
             </tr>
         </tbody>
-    
+
     </table>
+
     <div class="d-flex justify-content-center">
-        <pagination-controls 
-          responsive="true" 
-          previousLabel="Anterior" 
-          nextLabel="Siguiente" 
-          (pageChange)="cambiarPagina($event)">
+        <pagination-controls responsive="true" previousLabel="Anterior" nextLabel="Siguiente"
+            (pageChange)="cambiarPagina($event)">
         </pagination-controls>
-      </div>
-  </div>
+    </div>
+</div>
