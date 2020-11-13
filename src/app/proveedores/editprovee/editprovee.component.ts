@@ -93,13 +93,20 @@ export class EditproveeComponent implements OnInit {
         () => {
           this.alertas.notificacion('Cambio realizado', 'success');
           this.router.navigate(['/proveedores']);
-        });
+        }).catch(
+          (err) => {
+            this.alertas.notificacion(err, 'error');
+          });
+
     } else if (this.proveedor) {
       this.proveedoresService.addProveedor(this.proveedor).then(
         () => {
           this.alertas.notificacion('Cambio realizado', 'success');
           this.router.navigate(['/proveedores']);
-        });
+        }).catch(
+          (err) => {
+            this.alertas.notificacion(err, 'error');
+          });
     }
     this.proveedorForm.reset();
   }
@@ -125,10 +132,10 @@ export class EditproveeComponent implements OnInit {
       nombre: ['', Validators.required],
       cif: ['', Validators.required],
       direccion: ['', [Validators.required]],
-      cp: ['', [ Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)] ],
+      cp: ['', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
       localidad: ['', Validators.required],
       provincia: [null, Validators.required],
-      telefono: ['', [Validators.required, Validators.minLength(9), Validators.pattern(/^-?(0|[1-9]\d*)?$/) ]],
+      telefono: ['', [Validators.required, Validators.minLength(9), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
       email: ['', [Validators.required, Validators.email]],
       contacto: ['', Validators.required],
     });

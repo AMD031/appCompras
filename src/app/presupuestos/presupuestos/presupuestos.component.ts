@@ -59,8 +59,11 @@ export class PresupuestosComponent implements OnInit {
           clave && this.presupuestosService.removePresupuesto(clave).then(
             () => {
               this.alertas.notificacion('Borrando', 'info');
-            });
-        }
+            }).catch(
+              (err) => {
+                this.alertas.notificacion(err, 'error');
+              });
+          }
       });
   }
 

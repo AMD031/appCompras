@@ -60,15 +60,21 @@ export class EditpresComponent implements OnInit {
     if (this.presupuesto && this.id) {
       this.presupuestoService.updatePresupuesto(this.id, this.presupuesto).then(
         () => {
-          this.alertas.notificacion('Cambio realizado', 'success')
+          this.alertas.notificacion('Cambio realizado', 'success');
           this.router.navigate(['/presupuestos']);
-        });
+        }).catch(
+          (err) => {
+            this.alertas.notificacion(err, 'error');
+          });
     } else if (this.presupuesto) {
       this.presupuestoService.addPresupuestos(this.presupuesto).then(
         () => {
-          this.alertas.notificacion('Cambio realizado', 'success')
+          this.alertas.notificacion('Cambio realizado', 'success');
           this.router.navigate(['/presupuestos']);
-        });
+        }).catch(
+          (err) => {
+            this.alertas.notificacion(err, 'error');
+          });
     }
 
 

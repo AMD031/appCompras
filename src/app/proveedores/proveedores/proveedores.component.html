@@ -1,85 +1,87 @@
 <h3>Listado de proveedores</h3>
-<div class="table-responsive-xl">
+<div>
     <div class="form-group">
-        <input type="text" class="form-control" placeholder="Buscar..." [ngModel]="terminoBusqueda" (ngModelChange)="buscar($event)">
-      </div>
-    <table class="table table-bordered table-striped">
-        
-        <thead>
-            <tr class="filter">
-               <!--  <th colspan="1" class="text-left">
+        <input type="text" class="form-control" placeholder="Buscar..." [ngModel]="terminoBusqueda"
+            (ngModelChange)="buscar($event)">
+    </div>
+    <div class="table-responsive-sm">
+        <table class="table table-bordered table-striped">
+
+            <thead>
+                <tr class="filter">
+                    <!--  <th colspan="1" class="text-left">
                     <div class="text-right btn btn-info" (click)="atras()">      
                         Atrás
                     </div>
                 </th> -->
-                <th colspan="8" class="text-right">
-                    <div class="text-right">      
-                        <a class="btn btn-primary mb-2" routerLink="/addprovee">Agregar proveedor</a> 
-                    </div>
-                </th>
-                <!-- <th colspan="1" class="text-right">
+                    <th colspan="8" class="text-right">
+                        <div class="text-right">
+                            <a class="btn btn-primary mb-2" routerLink="/addprovee">Agregar proveedor</a>
+                        </div>
+                    </th>
+                    <!-- <th colspan="1" class="text-right">
                     <div class="text-right btn btn-info" (click)="siguiente()">      
                         Siguiente
                     </div>
                 </th> -->
-            </tr>
+                </tr>
 
-            <tr class="filters">
-                <th (click)="sort('nombre')" class="clic">
-                    Nombre
-                    <span  *ngIf="key =='nombre'">
-                        <i *ngIf="!reverse" class="fa fa-angle-double-up"></i>
-                        <i *ngIf="reverse" class="fa fa-angle-double-down"></i>
-                    </span>
-                
-                </th>
-                <th (click)="sort('email')" class="clic">
-                    Correo Electrónico
-                    <span  *ngIf="key =='email'">
-                        <i *ngIf="!reverse" class="fa fa-angle-double-up"></i>
-                        <i *ngIf="reverse" class="fa fa-angle-double-down"></i>
-                    </span>
-                </th>
-                <th>
-                    Telefono
-                </th>
-                <!-- <th>Key</th> -->
-                <th>Editar</th>
-                <th>Eliminar</th>
-            </tr>
-        </thead>
+                <tr class="filters">
+                    
+                    <th (click)="sort('nombre')" class="clic">
+                        Nombre
+                        <span *ngIf="key =='nombre'">
+                            <i *ngIf="!reverse" class="fa fa-angle-double-up"></i>
+                            <i *ngIf="reverse" class="fa fa-angle-double-down"></i>
+                        </span>
+                    </th>
 
-        <tbody>
-            <tr *ngFor="let proveedor of  this.proveedoresService.proveedoress | orderBy: key : reverse  | filter:terminoBusqueda | paginate : {
+                    <th (click)="sort('email')" class="clic">
+                        Correo Electrónico
+                        <span *ngIf="key =='email'">
+                            <i *ngIf="!reverse" class="fa fa-angle-double-up"></i>
+                            <i *ngIf="reverse" class="fa fa-angle-double-down"></i>
+                        </span>
+                    </th>
+
+                    <th>
+                        Telefono
+                    </th>
+                    <!-- <th>Key</th> -->
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let proveedor of  this.proveedoresService.proveedoress | orderBy: key : reverse  | filter:terminoBusqueda | paginate : {
                 itemsPerPage: cantidadItemPagina,
                 currentPage: paginaActual,
                 totalItems: cantidadItem
               }; let i = index" [class.active]="i == currentIndex">
-                <td>{{ proveedor.nombre }}</td>
-                <td><a href="mailto:{{ proveedor.email}}">{{ proveedor.email }}</a></td>
-                <td>{{ proveedor.telefono }}</td>
-                <!-- <td> <pre>{{proveedor.key | json}}</pre></td> -->
+                    <td>{{ proveedor.nombre }}</td>
+                    <td><a href="mailto:{{ proveedor.email}}">{{ proveedor.email }}</a></td>
+                    <td>{{ proveedor.telefono }}</td>
+                    <!-- <td> <pre>{{proveedor.key | json}}</pre></td> -->
 
-                <td>
-                    <button type="button" class="btn btn-success" [routerLink]="['/editprovee', proveedor.key]">
-                        Editar
-                    </button>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-danger" (click)="removeProvedor(proveedor.key)">
-                        Eliminar
-                    </button>
-                </td>
-            </tr>
-        </tbody>
+                    <td>
+                        <button type="button" class="btn btn-success" [routerLink]="['/editprovee', proveedor.key]">
+                            Editar
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" (click)="removeProvedor(proveedor.key)">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
 
-    </table>
+        </table>
+    </div>
     <div class="d-flex justify-content-center">
-        <pagination-controls 
-          responsive="true" 
-          previousLabel="Anterior" 
-          nextLabel="Siguiente" 
-          (pageChange)="cambiarPagina($event)">
+        <pagination-controls responsive="true" previousLabel="Anterior" nextLabel="Siguiente"
+            (pageChange)="cambiarPagina($event)">
         </pagination-controls>
-      </div>
-  </div>
+    </div>
+</div>

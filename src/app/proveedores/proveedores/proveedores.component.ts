@@ -63,6 +63,9 @@ export class ProveedoresComponent implements OnInit {
           clave && this.proveedoresService.removeProvedor(clave).then(
             () => {
               this.alertas.notificacion('Borrando', 'info');
+            }).catch(
+              (err) => {
+                this.alertas.notificacion(err, 'error');
             });
         }
       });
