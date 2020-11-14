@@ -65,7 +65,7 @@ export class HeaderComponent implements OnInit {
   }
 
   redirecionar(): void {
-    console.log(this.isAuth());
+    // console.log(this.isAuth());
     if (this.isAuth()) {
       this.router.navigate(['/inicio']);
     }

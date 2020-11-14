@@ -112,7 +112,7 @@ export class ProveedoresComponent implements OnInit {
     if (this.terminoBusqueda) {
       this.paginaActual = 1;
       this.cantidadItemPagina = 10000;
-      console.log(this.terminoBusqueda);
+      //console.log(this.terminoBusqueda);
     } else {
       this.paginaActual = 1;
       this.cantidadItemPagina = 5;
