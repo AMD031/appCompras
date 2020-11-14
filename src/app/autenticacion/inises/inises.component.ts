@@ -41,10 +41,11 @@ export class InisesComponent implements OnInit {
    
     this.autService.inicioSesion(this.userdata).then(
       (UserCredential) => {
-        this.alerta.ocultar();
         this.obtenerToken();
+        this.alerta.ocultar();
       }).catch(error => {
         // console.log(error);
+        this.alerta.ocultar();
         this.alerta.notificacion(`${error}`, 'error');
       });
 
@@ -59,10 +60,13 @@ export class InisesComponent implements OnInit {
   }
 
   loginGoogle(): void {
+    this.alerta.mostrarCarga('Iniciando seccion', '');
     this.autService.inicioSesionGoogle().then(
       (UserCredential) => {
         this.obtenerToken();
+        this.alerta.ocultar();
       }).catch( (err) => {
+        this.alerta.ocultar();
         this.alerta.notificacion( err , 'error');
       });
 
