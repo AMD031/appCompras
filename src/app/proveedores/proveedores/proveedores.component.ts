@@ -62,7 +62,7 @@ export class ProveedoresComponent implements OnInit {
           // tslint:disable-next-line: no-unused-expression
           clave && this.proveedoresService.removeProvedor(clave).then(
             () => {
-              this.alertas.notificacion('Borrando', 'info');
+              this.alertas.notificacion('Borrando.', 'info');
             }).catch(
               (err) => {
                 this.alertas.notificacion(err, 'error');
