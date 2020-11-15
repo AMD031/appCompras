@@ -52,7 +52,7 @@ export class PresupuestosComponent implements OnInit {
   // }
 
   eliminarPresupuesto(clave): void {
-    this.alertas.alertaBorrar('Proveedor').then(
+    this.alertas.alertaBorrar('Presupuesto').then(
       (result) => {
         if (result.isConfirmed) {
           // tslint:disable-next-line: no-unused-expression
